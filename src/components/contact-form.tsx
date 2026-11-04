@@ -41,7 +41,7 @@ export function ContactForm({ initialMode }: { initialMode: ContactMode }) {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (pending) return;
+    if (pending || mode === "unavailable") return;
     setNotice(null);
     const raw = new FormData(event.currentTarget);
     const values: ContactInput = {
@@ -90,7 +90,7 @@ export function ContactForm({ initialMode }: { initialMode: ContactMode }) {
   return <form ref={formRef} className="contact-form" onSubmit={submit} onFocus={primeToken} noValidate aria-label="Présenter votre projet" aria-busy={pending}>
     <div className="form-heading"><h3>Votre idée nous intéresse.</h3><p>Les champs marqués d’un * sont obligatoires.</p></div>
     {mode === "development" && <p className="form-mode"><Icon name="circle" /><span>Mode développement : vous pouvez tester le formulaire. <strong>Aucun message ne sera envoyé.</strong></span></p>}
-    {mode === "unavailable" && <p className="form-mode" role="status"><Icon name="circle" />Le formulaire est temporairement indisponible. Aucun message ne sera envoyé.</p>}
+    {mode === "unavailable" && <p className="form-mode" role="status"><Icon name="circle" />L’envoi des demandes n’est pas encore configuré. Aucun message ne peut être transmis depuis ce formulaire.</p>}
     <div className="form-row"><div className="field"><label htmlFor="contact-name">Nom et prénom *</label><input id="contact-name" name="name" type="text" autoComplete="name" placeholder="Votre nom et prénom" required maxLength={100} {...attributes("name")} />{fieldError("name")}</div><div className="field"><label htmlFor="contact-company">Entreprise *</label><input id="contact-company" name="company" type="text" autoComplete="organization" placeholder="Le nom de votre entreprise" required maxLength={150} {...attributes("company")} />{fieldError("company")}</div></div>
     <div className="form-row"><div className="field"><label htmlFor="contact-email">Email professionnel *</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder="vous@entreprise.fr" required maxLength={254} {...attributes("email")} />{fieldError("email")}</div><div className="field"><label htmlFor="contact-phone">Téléphone <span>(facultatif)</span></label><input id="contact-phone" name="phone" type="tel" autoComplete="tel" placeholder="Votre numéro" maxLength={32} {...attributes("phone")} />{fieldError("phone")}</div></div>
     <div className="field"><label htmlFor="contact-message">Votre projet ou votre besoin *</label><textarea id="contact-message" name="message" rows={4} placeholder="Décrivez votre idée, le problème à résoudre ou ce que vous aimeriez améliorer. Vous pouvez aussi nous demander d’explorer les possibilités…" required minLength={20} maxLength={4000} {...attributes("message")} />{fieldError("message")}<span className="field-hint">20 à 4 000 caractères. N’incluez pas de données sensibles.</span></div>

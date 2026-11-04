@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   robots: { index: isIndexable(), follow: isIndexable() },
   openGraph: { type: "website", locale: "fr_FR", siteName: siteConfig.name, title: `${siteConfig.name} — ${siteConfig.tagline}`, description: siteConfig.description, ...(siteConfig.url ? { url: siteConfig.url, images: [{ url: `${siteConfig.url}/og-image.png`, width: 1200, height: 630, alt: `${siteConfig.name} — ${siteConfig.tagline}` }] } : {}) },
   twitter: { card: "summary_large_image", title: `${siteConfig.name} — ${siteConfig.tagline}`, description: siteConfig.description, ...(siteConfig.url ? { images: [`${siteConfig.url}/og-image.png`] } : {}) },
-  icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml" }, { url: "/favicon.ico", sizes: "32x32" }], apple: "/apple-touch-icon.png" },
+  icons: { icon: [{ url: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg`, type: "image/svg+xml" }, { url: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/favicon.ico`, sizes: "32x32" }], apple: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/apple-touch-icon.png` },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#ffffff", colorScheme: "light" };

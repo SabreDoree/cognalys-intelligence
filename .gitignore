@@ -8,3 +8,6 @@ coverage/
 .DS_Store
 *.log
 .vercel/
+
+.pages-build/
+out/

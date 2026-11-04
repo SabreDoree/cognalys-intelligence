@@ -27,7 +27,7 @@ export function Header() {
   return <header className="site-header">
     <div className="shell header-inner">
       <Link href="/" className="brand" aria-label={`${siteConfig.name} — accueil`} onClick={() => setOpen(false)}>
-        <Image src="/wordmark.svg" alt="Cognalys Intelligence — Repensons vos systèmes avec intelligence" width={940} height={175} className="brand-logo" priority />
+        <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/wordmark.svg`} alt="Cognalys Intelligence — Repensons vos systèmes avec intelligence" width={940} height={175} className="brand-logo" priority />
       </Link>
       <nav className="desktop-nav" aria-label="Navigation principale">{siteConfig.nav.map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}</nav>
       <Link className="button button-header" href="/#contact">{siteConfig.hero.primaryCta} <Icon name="arrowUpRight" /></Link>

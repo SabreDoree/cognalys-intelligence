@@ -162,3 +162,11 @@ Les animations respectent `prefers-reduced-motion`. Les contrôles disposent de 
 - [CNIL : informer les personnes](https://www.cnil.fr/fr/informer-les-personnes)
 
 Les informations juridiques du site sont des modèles à adapter à la structure réelle et aux traitements effectivement mis en œuvre.
+
+## Publication sur GitHub Pages
+
+Le workflow `.github/workflows/pages.yml` construit et publie la version statique à chaque modification de `main`. Il tente d’activer Pages automatiquement ; les droits et le forfait GitHub doivent l’autoriser pour ce dépôt.
+
+`npm run build:pages` prépare une copie isolée dans `.pages-build`, retire uniquement ses routes API et produit `out/`. Les routes serveur originales sont conservées dans le code source pour un hébergement Next.js complet. `NEXT_PUBLIC_BASE_PATH` configure le sous-dossier du site.
+
+Sur Pages, le formulaire est explicitement indisponible : aucun message n’est envoyé et aucun appel aux routes serveur absentes n’est déclenché à la prise de focus. Un hébergement serveur ou un service de réception dédié est nécessaire pour l’activer. Les en-têtes HTTP du serveur Next.js ne sont pas appliqués par GitHub Pages.

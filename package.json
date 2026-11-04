@@ -7,6 +7,7 @@
     "dev": "node scripts/dev.mjs",
     "preview": "node scripts/dev.mjs --production",
     "build": "next build",
+    "build:pages": "node scripts/build-pages.mjs",
     "start": "next start --hostname 0.0.0.0",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
