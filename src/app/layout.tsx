@@ -9,7 +9,7 @@ const manrope = localFont({ src: "../../node_modules/@fontsource-variable/manrop
 
 export const metadata: Metadata = {
   ...(siteConfig.url ? { metadataBase: new URL(siteConfig.url) } : {}),
-  title: { default: `${siteConfig.name} — Automatisation, IA & outils sur mesure`, template: `%s | ${siteConfig.name}` },
+  title: { default: `${siteConfig.name} — Plus de clients, moins de tâches manuelles`, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   applicationName: siteConfig.name,
   robots: { index: isIndexable(), follow: isIndexable() },

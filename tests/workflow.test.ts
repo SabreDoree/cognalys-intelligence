@@ -3,7 +3,10 @@ import assert from "node:assert/strict";
 import { workflowReducer, initialWorkflowState, workflowDelay, type WorkflowState } from "../src/lib/workflow-state";
 import { workflows } from "../src/config/workflows";
 import { demoComparisons } from "../src/config/demo-comparisons";
-import { demoResearch } from "../src/config/demo-research";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { DemoScene } from "../src/components/demo-scenes";
+import { quoteExample, quoteNet, quoteVat, invoiceExample, orderExample, carrierExample, urgencySignals } from "../src/config/demo-data";
 
 test("validation activée : ni le timer ni l’étape suivante ne franchissent le contrôle", () => {
   let state = workflowReducer(initialWorkflowState, "start");
@@ -41,10 +44,37 @@ test("chaque scénario dispose d’un contrôle optionnel et d’hypothèses de 
   assert.equal(new Set(workflows.map(item=>item.id)).size,workflows.length);
   for(const scenario of workflows){assert.equal(scenario.steps.length,6,scenario.id);assert.equal(scenario.steps[4].title,"Validation humaine",scenario.id);assert.ok(demoComparisons[scenario.id]?.scope,scenario.id);}
 });
-test("les sources du chatbot correspondent à la question, uniquement à l’étape recherche", () => {
-  assert.deepEqual(demoResearch("chatbot",1,"retour"),[]);
-  assert.match(demoResearch("chatbot",2,"retour")[2].result,/support/);
-  assert.match(demoResearch("chatbot",2,"suivi")[2].result,/suivi/);
-  assert.deepEqual(demoResearch("telephone",2,"retour"),[]);
-  for(const [id,step] of [["facture",2],["suivi",2],["integration",1],["rapport",1]] as const) assert.equal(demoResearch(id,step,"retour").length,3);
+
+function scene(id:string, step:number, overrides:Record<string,unknown>={}) {
+ return renderToStaticMarkup(createElement(DemoScene,{id,step,active:true,approved:true,topic:"suivi",setTopic:()=>{},channel:"email",setChannel:()=>{},appKind:"plant",setAppKind:()=>{},...overrides}));
+}
+test("devis, facture et stock : cohérence des valeurs affichées de bout en bout",()=>{
+ assert.equal(quoteNet,quoteExample.visits*quoteExample.weeks*quoteExample.pricePerVisit);
+ assert.equal(quoteVat,76.8);assert.equal(quoteNet+quoteVat,460.8);
+ assert.equal(invoiceExample.net+invoiceExample.vat,invoiceExample.total);
+ assert.equal(orderExample.stock-orderExample.quantity,22);
+ assert.match(scene("demande",3),/DEV-2026-1045/);assert.match(scene("demande",5),/DEV-2026-1045.pdf/);
+ assert.match(scene("facture",5),/2026-11-03_Atelier-Proprete_FAC-2026-118.pdf/);
+ assert.match(scene("integration",5),/CC-1042-STR/);
+});
+test("service client : demande de référence, recherche transporteur et réponse concrète",()=>{
+ assert.match(scene("chatbot",1),/numéro de suivi/);
+ assert.match(scene("chatbot",2),new RegExp(carrierExample.reference));
+ assert.match(scene("chatbot",3),/14 h et 18 h/);
+ assert.match(scene("chatbot",5),/Suivre le colis/);
+});
+test("insatisfaction : signalement visible, collecte du contact puis reprise humaine",()=>{
+ const start=scene("chatbot",0,{topic:"urgence"});
+ assert.match(start,/signal-mark/);for(const signal of urgencySignals)assert.ok(start.includes(signal),signal);
+ assert.match(scene("chatbot",1,{topic:"urgence"}),/quelle adresse email/);
+ assert.match(scene("chatbot",5,{topic:"urgence",approved:false}),/Conseillère · Léa/);
+});
+test("appel, relance et application : résultats distincts selon la variante",()=>{
+ assert.match(scene("telephone",2),/samedi/);assert.match(scene("telephone",3),/Je confirme/);
+ assert.match(scene("telephone",5),/camille@horizon.example/);
+ assert.match(scene("suivi",3,{channel:"call"}),/Assistant vocal/);
+ assert.match(scene("suivi",3,{channel:"email"}),/EMAIL PRÊT/);
+ assert.match(scene("application",5),/Monstera/);
+ assert.match(scene("application",5,{appKind:"property"}),/Fissure apparente/);
+ assert.ok(workflows.some(s=>s.id==="application"));assert.ok(!workflows.some(s=>s.id==="rapport"));
 });

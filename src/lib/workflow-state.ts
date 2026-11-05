@@ -18,4 +18,4 @@ export function workflowReducer(state: WorkflowState, action: WorkflowAction): W
 }
 
 // Lecture volontairement lente ; la recherche dispose de plus de temps à l’écran.
-export function workflowDelay(hasResearch: boolean): number { return hasResearch ? 10000 : 7500; }
+export function workflowDelay(hasResearch: boolean): number { return hasResearch ? 16000 : 11000; }

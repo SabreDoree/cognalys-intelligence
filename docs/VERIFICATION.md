@@ -26,3 +26,7 @@ Sept parcours, comparaison avant/après et durées illustratives avec hypothèse
 ## Révision de lisibilité et contrôle optionnel — 5 novembre 2026
 
 Suppression de la liste d’étapes répétée et de la comparaison ouverte par défaut. Un seul détail actif, fondu progressif, commandes en haut, lecture 7,5 s / recherches 10 s et mode pas à pas. Interrupteur accessible de validation humaine, remise au départ lors du changement, saut de l’étape si OFF. Recherche illustrée de trois sources pour chatbot, factures, suivi, intégration et bilan ; aucune requête externe. Tests couvrant les deux branches, le contrôle en mode manuel, le changement de réglage et la cohérence des sources.
+
+## Refonte des cas concrets — 5 novembre 2026
+
+Positionnement commercial fondé sur les demandes traitées et le travail manuel réduit, sans promesse de revenu ou gain mesuré. Sept scènes, séquences de dialogues, surlignages et résultats fictifs. Devis calculé à partir de 8 passages × 48 € HT ; facture 240 € HT + 48 € TVA = 288 € TTC ; stock 24 − 2 = 22. Les tests vérifient les valeurs et rendus importants, les variantes de conversation et les deux branches du contrôle humain. Les simulations ne déclenchent aucun appel, message, paiement ni traitement de photo réel.

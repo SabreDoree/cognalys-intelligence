@@ -23,11 +23,11 @@ export default function Home() {
         <div className="hero-actions"><a className="button button-cyan" href="#contact">{siteConfig.hero.primaryCta}<Icon name="arrowUpRight" /></a><a className="text-link" href="#demonstration">{siteConfig.hero.secondaryCta}<Icon name="arrow" /></a></div>
         <p className="hero-note"><span className="note-line" />{siteConfig.hero.note}</p>
       </div><HeroFlow /></div>
-      <div className="shell benefit-strip"><span>Votre besoin, notre point de départ.</span><p><Icon name="workflow" /> Automatisation</p><p><Icon name="spark" /> Intelligence artificielle</p><p><Icon name="plug" /> Outils sur mesure</p></div>
+      <div className="shell benefit-strip"><span>Votre résultat, notre point de départ.</span><p><Icon name="workflow" /> Moins de saisie</p><p><Icon name="spark" /> Des demandes traitées</p><p><Icon name="plug" /> Des prospects suivis</p></div>
     </section>
 
     <section id="demonstration" className="section demo-section" aria-labelledby="demo-heading"><div className="shell">
-      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">01</span> ESSAYEZ PAR VOUS-MÊME</p><h2 id="demo-heading">Voyez ce que votre entreprise<br /><span className="accent">pourrait déléguer.</span></h2></div><p>Chatbot, accueil téléphonique, devis, factures… Choisissez un cas et découvrez chaque étape à votre rythme. Avec ou sans validation humaine : à vous de choisir.</p></div>
+      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">01</span> ESSAYEZ PAR VOUS-MÊME</p><h2 id="demo-heading">Voyez le travail se faire.<br /><span className="accent">Et ce que vous y gagnez.</span></h2></div><p>Un client écrit, appelle ou passe commande. Découvrez comment sa demande peut être traitée, du premier message au résultat. Chaque exemple est fictif ; votre projet peut être différent.</p></div>
       <WorkflowDemo />
     </div></section>
 

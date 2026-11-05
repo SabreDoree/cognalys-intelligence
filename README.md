@@ -171,13 +171,12 @@ Le workflow `.github/workflows/pages.yml` construit et publie la version statiqu
 
 Sur Pages, le formulaire est explicitement indisponible : aucun message n’est envoyé et aucun appel aux routes serveur absentes n’est déclenché à la prise de focus. Un hébergement serveur ou un service de réception dédié est nécessaire pour l’activer. Les en-têtes HTTP du serveur Next.js ne sont pas appliqués par GitHub Pages.
 
-## Démonstrations enrichies
+## Démonstrations concrètes
 
-La démonstration est placée directement après l’accroche. Sept scénarios : demande client, facture, suivi commercial, chatbot, accueil téléphonique, logiciels connectés et bilan d’activité. Les chargements, messages, flux et oscillations vocales sont purement visuels. Aucun appel à un service IA, téléphonique ou de messagerie n’est effectué. Le chatbot propose deux questions prédéfinies ; il ne s’agit pas d’une conversation avec un modèle réel.
+Sept parcours fictifs : demande de devis, accueil téléphonique, facture reçue, relance de devis (email/appel), service client (suivi transporteur/retour/insatisfaction), commande e-commerce et traitement d’image pour applications (plante/état des lieux). Le bilan d’activité est remplacé. Boîte mail, surlignage, devis calculé, facture, arborescence, conversations et téléphone sont rendus en HTML/CSS/SVG ; aucune requête vers une IA ou un service externe.
 
-`src/config/demo-comparisons.ts` décrit les étapes avant/après et les hypothèses de temps. Ces durées sont illustratives, non mesurées et non garanties ; le temps humain de vérification est présenté séparément. Le rythme de l’animation est indépendant de ces estimations. Chaque scénario s’arrête à la validation humaine et respecte le mode de réduction des animations du navigateur.
+`src/config/demo-data.ts` contient les pièces et valeurs cohérentes partagées, `demo-scenes.tsx` rend les situations et `demo-comparisons.ts` décrit les hypothèses de durée. Tarifs, politiques, identités et résultats sont entièrement fictifs. Les durées sont illustratives, non mesurées et non garanties. La démonstration pour développeurs distingue le délai de réponse par image du travail d’intégration.
+
+Une étape à la fois, 11 secondes par étape, 16 secondes pour les conversations et lectures longues, ou mode pas à pas. Le choix ON/OFF de validation humaine est conservé entre les scénarios ; son changement remet le parcours au départ. OFF saute le point de validation. Le cas d’insatisfaction continue à transmettre à un conseiller : une escalade n’est pas une validation préalable. Le changement de canal, de question ou d’application réinitialise le parcours. Les animations sont réduites selon les préférences du système.
 
 Les affirmations d’hébergement des solutions sur les serveurs Cognalys proviennent du commanditaire ; elles ne décrivent pas l’hébergement du site vitrine sur GitHub Pages. Les projets médicaux/pharmaceutiques nécessitent une vérification préalable des exigences applicables ; aucune certification HDS ou conformité sectorielle générale n’est revendiquée.
-
-### Lecture des démonstrations
-Une étape à la fois, 7,5 secondes par étape et 10 secondes pour les recherches, ou mode pas à pas. Validation humaine configurable par un interrupteur : activation/désactivation réinitialise le parcours et le choix est conservé entre les scénarios. Sans validation, l’étape humaine est sautée ; cela ne modifie que la simulation, pas un service réel. Les exceptions et règles de production restent à définir selon le projet. Les sources affichées sont fictives et dépendent de la question de chatbot choisie. Comparaison avant/après dépliable, animations progressives désactivées si le système demande de réduire le mouvement.
