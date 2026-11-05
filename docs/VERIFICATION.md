@@ -34,3 +34,5 @@ Positionnement commercial fondé sur les demandes traitées et le travail manuel
 ## Révision responsive et réalisme des contrôles — 5 novembre 2026
 
 Grille bornée par la hauteur disponible, navigation latérale remplacée par une sélection sur mobile, lecture interne et commandes persistantes. Plans de parcours de longueur variable et points de validation explicites : devis et facture uniquement. Tests couvrant tous les plans, le contrôle humain, la chronologie des relances et l’interface d’appel. La recette navigateur locale par fichier n’est pas disponible ; la version publique sert à la vérification visuelle.
+
+Recette publique : sur une fenêtre de 1348 × 936, le simulateur est entièrement cadré après sélection, commandes accessibles et aucun débordement horizontal. Parcours appel sans validation jusqu’au terme, relance contact puis réponse et ouverture/fermeture de la boîte d’estimations vérifiés. Le contrôle visuel sur un viewport mobile n’est pas disponible dans ce navigateur ; les règles CSS mobiles ont été contrôlées, pas une recette sur appareil réel.
