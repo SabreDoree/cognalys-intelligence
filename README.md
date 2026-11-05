@@ -1,6 +1,6 @@
 # Cognalys Intelligence — site web
 
-Site one-page français sur fond blanc, avec le logo fourni et une identité anthracite / bleu. Le positionnement est généraliste : automatisation, intelligence artificielle, connexion de logiciels et outils sur mesure, sans spécialisation sectorielle. Neuf exemples interactifs servent d’inspiration : connexion de logiciels, outil métier, assistant documentaire, devis, relances, factures, tri des demandes, dossiers et chiffres d’activité. Chaque demande est étudiée avant engagement sur sa faisabilité. Trois simulations, méthode, principes, FAQ et formulaire sécurisé complètent le parcours.
+Site one-page français sur fond blanc, avec le logo fourni et une identité anthracite / bleu. Le positionnement est généraliste : automatisation, intelligence artificielle, connexion de logiciels et outils sur mesure, sans spécialisation sectorielle. Neuf exemples interactifs servent d’inspiration : connexion de logiciels, outil métier, assistant documentaire, devis, relances, factures, tri des demandes, dossiers et chiffres d’activité. Chaque demande est étudiée avant engagement sur sa faisabilité. Sept simulations, méthode, principes, FAQ et formulaire sécurisé complètent le parcours.
 
 **Le code est complet. L’envoi réel des demandes et l’ouverture au référencement nécessitent vos coordonnées, vos informations légales et vos identifiants de services. Aucune donnée officielle n’a été inventée.**
 
@@ -33,7 +33,7 @@ Le mode développement valide les champs, puis retourne explicitement **« aucun
 |---|---|
 | Nom, slogan, textes du hero, services, méthode, FAQ, coordonnées, liens sociaux et informations légales | `src/config/site.ts` |
 | Neuf exemples de projets, présentés comme des inspirations | `src/config/possibilities.ts` |
-| Textes et étapes des trois simulations | `src/config/workflows.ts` |
+| Textes et étapes des sept simulations | `src/config/workflows.ts` |
 | Titres et structure des sections | `src/app/page.tsx` |
 | Couleurs, espacements, responsive, animations | `src/app/globals.css` |
 | Traitement des demandes et messages serveur | `src/lib/contact-handler.ts` |
@@ -170,3 +170,11 @@ Le workflow `.github/workflows/pages.yml` construit et publie la version statiqu
 `npm run build:pages` prépare une copie isolée dans `.pages-build`, retire uniquement ses routes API et produit `out/`. Les routes serveur originales sont conservées dans le code source pour un hébergement Next.js complet. `NEXT_PUBLIC_BASE_PATH` configure le sous-dossier du site.
 
 Sur Pages, le formulaire est explicitement indisponible : aucun message n’est envoyé et aucun appel aux routes serveur absentes n’est déclenché à la prise de focus. Un hébergement serveur ou un service de réception dédié est nécessaire pour l’activer. Les en-têtes HTTP du serveur Next.js ne sont pas appliqués par GitHub Pages.
+
+## Démonstrations enrichies
+
+La démonstration est placée directement après l’accroche. Sept scénarios : demande client, facture, suivi commercial, chatbot, accueil téléphonique, logiciels connectés et bilan d’activité. Les chargements, messages, flux et oscillations vocales sont purement visuels. Aucun appel à un service IA, téléphonique ou de messagerie n’est effectué. Le chatbot propose deux questions prédéfinies ; il ne s’agit pas d’une conversation avec un modèle réel.
+
+`src/config/demo-comparisons.ts` décrit les étapes avant/après et les hypothèses de temps. Ces durées sont illustratives, non mesurées et non garanties ; le temps humain de vérification est présenté séparément. Le rythme de l’animation est indépendant de ces estimations. Chaque scénario s’arrête à la validation humaine et respecte le mode de réduction des animations du navigateur.
+
+Les affirmations d’hébergement des solutions sur les serveurs Cognalys proviennent du commanditaire ; elles ne décrivent pas l’hébergement du site vitrine sur GitHub Pages. Les projets médicaux/pharmaceutiques nécessitent une vérification préalable des exigences applicables ; aucune certification HDS ou conformité sectorielle générale n’est revendiquée.

@@ -18,3 +18,7 @@ La version précédente avait fait l’objet d’une recette du menu, du formula
 ## Mise en service
 
 Aucun envoi réel ni publication publique. Compléter les coordonnées et informations légales, configurer les services et effectuer une recette sur le domaine choisi. Indexation désactivée par défaut. Aucun score Lighthouse, mesure de performance terrain ou audit complet d’accessibilité revendiqué.
+
+## Révision des démonstrations — 5 novembre 2026
+
+Sept parcours, comparaison avant/après et durées illustratives avec hypothèses et contrôle humain séparé. Simulations sans services externes ; pause, reprise, réinitialisation et arrêt humain conservés. Deux questions de chatbot prédéfinies. Mode de réduction des animations prévu. Compilation statique et TypeScript réussis, tests du workflow étendus pour vérifier les contraintes de chaque scénario.

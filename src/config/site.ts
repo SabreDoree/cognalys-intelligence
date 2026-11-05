@@ -52,8 +52,8 @@ export const siteConfig = {
     description: "Une idée précise, un problème à résoudre ou une possibilité à explorer ? Racontez-nous votre besoin. Nous étudions chaque demande pour identifier une solution adaptée et vérifier sa faisabilité.",
   },
   nav: [
+    { label: "Démonstrations", href: "/#demonstration" },
     { label: "Exemples concrets", href: "/#solutions" },
-    { label: "Démonstration", href: "/#demonstration" },
     { label: "Comment ça marche", href: "/#methode" },
     { label: "FAQ", href: "/#faq" },
   ],
@@ -63,7 +63,7 @@ export const siteConfig = {
     accent: "Créons les solutions qui la font avancer.",
     description: "Automatiser une tâche, connecter vos logiciels, créer un outil sur mesure ou explorer une idée : nous étudions votre projet avec vous.",
     primaryCta: "Parlons de votre projet",
-    secondaryCta: "Explorer les possibilités",
+    secondaryCta: "Essayer les démonstrations",
     note: "Quel que soit votre secteur. Aucune connaissance en IA nécessaire.",
   },
   problems: [
@@ -101,7 +101,7 @@ export const siteConfig = {
     { question: "Comment est défini le budget d’un projet ?", answer: "Le budget dépend du nombre d’outils, de la complexité des règles, du volume à traiter et du niveau de suivi attendu. Nous établissons une proposition après avoir cadré le besoin. Les éventuels abonnements à des services tiers sont identifiés séparément." },
     { question: "Combien de temps prend un projet ?", answer: "Le calendrier dépend du périmètre, de la disponibilité des accès et des validations nécessaires. Nous le précisons après l’analyse du besoin. Commencer par un processus bien délimité permet d’avancer par étapes et de vérifier l’utilité de la solution." },
     { question: "Proposez-vous une maintenance ?", answer: "Oui, un accompagnement peut être prévu pour surveiller les scénarios, traiter les anomalies et faire évoluer les automatisations. Le périmètre, les modalités d’intervention et les conditions sont précisés dans la proposition." },
-    { question: "Comment sont protégées les données ?", answer: "Nous examinons les données nécessaires, les accès, l’hébergement et les prestataires avant la mise en place. Nous privilégions les accès limités et les données utiles au traitement. Les choix de sécurité, de conservation et de transfert sont documentés pour chaque projet ; ils dépendent aussi des outils retenus." },
+    { question: "Comment sont protégées les données ?", answer: "Les solutions et les données confiées sont hébergées sur nos serveurs. Nous définissons pour chaque projet les accès autorisés, la conservation et les mesures de protection adaptées ; le chiffrement des données stockées peut être mis en place selon les besoins. Toute connexion à un logiciel ou service tiers et les données qu’elle implique sont précisées dans le périmètre du projet. Pour les secteurs médical et pharmaceutique, les exigences de confidentialité, de traçabilité et de protection des données sont étudiées avant toute mise en service. Si le traitement nécessite un hébergement certifié HDS ou d’autres garanties spécifiques, ces conditions doivent être vérifiées et satisfaites avant la prise en charge des données concernées." },
     { question: "Peut-on commencer par un petit projet ?", answer: "Oui. Un premier processus bien défini permet de tester la solution dans votre contexte, de recueillir les retours de l’équipe et de décider ensuite de la suite. Il n’est pas nécessaire de transformer toute votre organisation d’un seul coup." },
   ],
 };

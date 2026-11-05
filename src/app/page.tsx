@@ -20,21 +20,21 @@ export default function Home() {
         <p className="eyebrow hero-eyebrow"><span className="tiny-dot" />{siteConfig.hero.eyebrow}</p>
         <h1 id="hero-heading">{siteConfig.hero.title}<br /><span>{siteConfig.hero.accent}</span></h1>
         <p className="hero-description">{siteConfig.hero.description}</p>
-        <div className="hero-actions"><a className="button button-cyan" href="#contact">{siteConfig.hero.primaryCta}<Icon name="arrowUpRight" /></a><a className="text-link" href="#solutions">{siteConfig.hero.secondaryCta}<Icon name="arrow" /></a></div>
+        <div className="hero-actions"><a className="button button-cyan" href="#contact">{siteConfig.hero.primaryCta}<Icon name="arrowUpRight" /></a><a className="text-link" href="#demonstration">{siteConfig.hero.secondaryCta}<Icon name="arrow" /></a></div>
         <p className="hero-note"><span className="note-line" />{siteConfig.hero.note}</p>
       </div><HeroFlow /></div>
       <div className="shell benefit-strip"><span>Votre besoin, notre point de départ.</span><p><Icon name="workflow" /> Automatisation</p><p><Icon name="spark" /> Intelligence artificielle</p><p><Icon name="plug" /> Outils sur mesure</p></div>
     </section>
 
-    <section id="solutions" className="section possibilities-section" aria-labelledby="solutions-heading"><div className="shell">
-      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">01</span> QUELQUES IDÉES POUR VOUS PROJETER</p><h2 id="solutions-heading">Imaginez ce qui devient<br /><span className="accent">possible pour vous.</span></h2></div><p>Voici quelques possibilités pour vous inspirer. Choisissez un exemple et découvrez comment une solution peut répondre à un besoin concret. Votre projet peut être complètement différent.</p></div>
-      <Possibilities />
-      <div className="possibilities-invitation"><Icon name="spark" /><p><strong>Votre projet ne ressemble à aucun de ces exemples ?</strong> Notre offre ne se limite pas à cette liste. Présentez-nous votre idée : nous en étudierons les possibilités avec vous.</p><a className="text-link" href="#contact">Présentez-nous votre projet<Icon name="arrowUpRight" /></a></div>
+    <section id="demonstration" className="section demo-section" aria-labelledby="demo-heading"><div className="shell">
+      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">01</span> ESSAYEZ PAR VOUS-MÊME</p><h2 id="demo-heading">Voyez ce que votre entreprise<br /><span className="accent">pourrait déléguer.</span></h2></div><p>Chatbot, accueil téléphonique, devis, factures… Choisissez un cas, comparez le travail avant et après, puis lancez le parcours animé. À l’étape sensible, vous gardez la main.</p></div>
+      <WorkflowDemo />
     </div></section>
 
-    <section id="demonstration" className="section demo-section" aria-labelledby="demo-heading"><div className="shell">
-      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">02</span> ESSAYEZ PAR VOUS-MÊME</p><h2 id="demo-heading">D’accord, mais<br /><span className="accent">comment ça se passe ?</span></h2></div><p>Une demande client, une facture ou une relance : lancez un exemple et regardez les tâches s’enchaîner. À l’étape sensible, c’est vous qui validez.</p></div>
-      <WorkflowDemo />
+    <section id="solutions" className="section possibilities-section" aria-labelledby="solutions-heading"><div className="shell">
+      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">02</span> QUELQUES IDÉES POUR VOUS PROJETER</p><h2 id="solutions-heading">Imaginez ce qui devient<br /><span className="accent">possible pour vous.</span></h2></div><p>Voici quelques possibilités pour vous inspirer. Choisissez un exemple et découvrez comment une solution peut répondre à un besoin concret. Votre projet peut être complètement différent.</p></div>
+      <Possibilities />
+      <div className="possibilities-invitation"><Icon name="spark" /><p><strong>Votre projet ne ressemble à aucun de ces exemples ?</strong> Notre offre ne se limite pas à cette liste. Présentez-nous votre idée : nous en étudierons les possibilités avec vous.</p><a className="text-link" href="#contact">Présentez-nous votre projet<Icon name="arrowUpRight" /></a></div>
     </div></section>
 
     <section id="methode" className="section method-section" aria-labelledby="method-heading"><div className="shell">

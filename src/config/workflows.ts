@@ -51,3 +51,43 @@ export const workflows: WorkflowScenario[] = [
     ],
   },
 ];
+
+
+// Les scénarios restent des simulations locales ; aucune API vocale ou IA appelée.
+function scenario(id: string, label: string, icon: string, subtitle: string, complete: string, rows: [string, string, string, string, string][]): WorkflowScenario {
+ return { id, label, icon, subtitle, complete, approval: "Valider pour continuer", steps: rows.map(([title, verb, description, system, value], index) => ({ title, verb, description, system, icon: index === 4 ? "hand" : icon, fields: [{ label: "Exemple fictif", value }, { label: "État", value: index === 4 ? "En attente de votre validation" : "Étape illustrée, sans action réelle" }] })) };
+}
+workflows.push(
+ scenario("chatbot", "Chatbot client", "spark", "Une question client devient une réponse guidée.", "La réponse a été validée dans cette simulation.", [
+ ["Question reçue", "Écouter", "Le client choisit une question fréquente dans la fenêtre de discussion.", "Conversation client", "Puis-je retourner un produit ?"],
+ ["Besoin identifié", "Comprendre", "Le sujet est repéré. Une demande ambiguë serait orientée vers un conseiller.", "Orientation", "Sujet : conditions de retour"],
+ ["Source retrouvée", "Rechercher", "L’assistant consulte uniquement la documentation autorisée pour ce sujet.", "Documentation fictive", "Procédure de retour · exemple pédagogique"],
+ ["Réponse préparée", "Rédiger", "Une réponse accompagnée de sa source est préparée. Elle n’est pas encore diffusée.", "Brouillon", "La procédure prévoit de contacter le support avec la référence de commande."],
+ ["Validation humaine", "Vérifier", "Dans cette démonstration, vérifiez la réponse et sa source avant de poursuivre.", "Contrôle du conseiller", "En production, le niveau de contrôle est défini selon les sujets et les risques."],
+ ["Client orienté", "Répondre", "La réponse validée peut être présentée et le client orienté vers un conseiller si nécessaire.", "Conversation", "Aucun message réel envoyé."],
+ ]),
+ scenario("telephone", "Accueil téléphonique", "users", "Un appel devient une demande qualifiée, prête à rappeler.", "Le compte rendu est validé. Le rappel peut être attribué.", [
+ ["Appel entrant", "Accueillir", "L’accueil vocal se présente comme automatisé. Le client peut demander un interlocuteur humain.", "Accueil vocal fictif", "Bonjour, je suis l’assistant vocal. Quel est le motif de votre appel ?"],
+ ["Motif précisé", "Qualifier", "L’agent pose quelques questions utiles à l’organisation du rappel.", "Dialogue fictif", "Je souhaite un devis pour une prestation la semaine prochaine."],
+ ["Informations regroupées", "Structurer", "Le motif et la disponibilité indiquée par le client sont regroupés, sans collecte excessive.", "Fiche d’appel", "Besoin : devis · Disponibilité : demain matin"],
+ ["Compte rendu préparé", "Résumer", "Un résumé est préparé pour le collaborateur compétent. Aucun rendez-vous n’est confirmé automatiquement.", "Compte rendu", "Demande de devis à rappeler, créneau à confirmer."],
+ ["Validation humaine", "Contrôler", "Un collaborateur vérifie le résumé et l’attribution avant de planifier la suite.", "Point de contrôle", "Vérifier les coordonnées et la disponibilité."],
+ ["Rappel organisé", "Transmettre", "La demande peut être attribuée au bon interlocuteur, avec son contexte.", "Suivi de l’appel", "Simulation visuelle : aucun appel, son ni enregistrement réel."],
+ ]),
+ scenario("integration", "Logiciels connectés", "plug", "Une commande circule sans être recopiée partout.", "La commande validée est prête pour l’équipe.", [
+ ["Commande reçue", "Recevoir", "Une commande arrive dans votre outil de vente.", "Boutique fictive", "Commande EX-042 · trois lignes"],
+ ["Données rapprochées", "Comparer", "Les références sont comparées au catalogue de l’outil de gestion.", "Catalogue", "Références et quantités à vérifier"],
+ ["Doublon contrôlé", "Vérifier", "L’identifiant de commande permet de rechercher un traitement déjà effectué.", "Registre", "EX-042 : nouvelle commande dans cet exemple"],
+ ["Dossier préparé", "Transférer", "Une fiche est préparée dans le logiciel de gestion selon les règles choisies.", "Gestion", "Fiche en attente de validation"],
+ ["Validation humaine", "Autoriser", "Un collaborateur contrôle les éventuelles différences avant d’autoriser la suite.", "Contrôle", "Quantités et correspondances vérifiées"],
+ ["Équipe informée", "Notifier", "Une notification peut être préparée pour l’équipe concernée.", "Préparation", "Aucune commande réelle créée."],
+ ]),
+ scenario("rapport", "Bilan d’activité", "calendar", "Les chiffres se rassemblent pour préparer votre point d’équipe.", "Le bilan a été validé dans cette simulation.", [
+ ["Échéance atteinte", "Démarrer", "Le créneau prévu déclenche la préparation du bilan.", "Planning", "Point hebdomadaire · exemple"],
+ ["Sources consultées", "Collecter", "Les données autorisées sont récupérées dans les sources prévues.", "Sources fictives", "Ventes · demandes clients · planning"],
+ ["Chiffres rapprochés", "Calculer", "Les indicateurs sont calculés selon des règles convenues.", "Tableau", "Calculs illustratifs, aucune donnée réelle"],
+ ["Bilan préparé", "Synthétiser", "Un récapitulatif met en évidence les éléments à examiner.", "Brouillon de bilan", "Dossiers en attente et prochaines étapes"],
+ ["Validation humaine", "Relire", "Le responsable vérifie les chiffres et la synthèse avant diffusion.", "Contrôle", "Les erreurs de source peuvent fausser le bilan."],
+ ["Point d’équipe prêt", "Partager", "Le bilan validé est prêt à être partagé selon les règles définies.", "Équipe", "Aucun rapport réel transmis."],
+ ]),
+);
