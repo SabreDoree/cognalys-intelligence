@@ -1,7 +1,7 @@
-export type WorkflowStep = { title:string; verb:string; icon:string; description:string; system:string; fields:{label:string;value:string}[] };
-export type WorkflowScenario = {id:string;label:string;icon:string;subtitle:string;benefit:string;approval:string;complete:string;steps:WorkflowStep[]};
+export type WorkflowStep = { scene:number; review:boolean; title:string; verb:string; icon:string; description:string; system:string; fields:{label:string;value:string}[] };
+export type WorkflowScenario = {id:string;label:string;icon:string;subtitle:string;benefit:string;approval:string;complete:string;reviewLabel?:string;steps:WorkflowStep[]};
 function scenario(id:string,label:string,icon:string,subtitle:string,benefit:string,complete:string,rows:[string,string,string][]):WorkflowScenario {
- return {id,label,icon,subtitle,benefit,complete,approval:id==="demande"?"Valider et envoyer le devis":id==="chatbot"?"Valider la réponse": "Valider et continuer",steps:rows.map(([title,verb,description],i)=>({title,verb,description,icon:i===4?"hand":icon,system:title,fields:[]}))};
+ return {id,label,icon,subtitle,benefit,complete,approval:id==="demande"?"Valider et envoyer le devis":id==="chatbot"?"Valider la réponse": "Valider et continuer",reviewLabel:id==="demande"?"Relire le devis avant envoi":id==="facture"?"Vérifier les données avant classement":undefined,steps:rows.map(([title,verb,description],i)=>({scene:i,review:i===4,title,verb,description,icon:i===4?"hand":icon,system:title,fields:[]})).filter(step=>!step.review||id==="demande"||id==="facture")};
 }
 export const workflows:WorkflowScenario[] = [
  scenario("demande","Demande de devis","mail","Un email reçu. Un devis prêt à partir.","Répondre avant qu’un prospect ne passe à la concurrence.","Le devis est dans la boîte du client.",[
@@ -31,10 +31,10 @@ export const workflows:WorkflowScenario[] = [
  scenario("suivi","Relance de devis","users","Un devis oublié devient une conversation.","Réactiver les opportunités déjà présentes dans votre suivi commercial.","Le prospect a répondu. Le prochain rappel est prévu.",[
  ["Un devis attend une réponse depuis huit jours","Repérer","Le dossier ressort automatiquement, sans fouiller les emails ou le tableur."],
  ["Les conditions de relance sont vérifiées","Vérifier","Le prospect n’a ni répondu ni demandé de suspendre les échanges. L’historique du devis est retrouvé."],
- ["La relance reprend le contexte du devis","Préparer","Choisissez un email ou un appel par assistant vocal. Le message se base sur la proposition déjà envoyée."],
- ["Le message ou l’appel est prêt","Contacter","Le client est relancé sur son besoin précis, avec la possibilité de revenir vers un commercial."],
+ ["Le prospect est contacté","Contacter","Un email ou un appel reprend le devis envoyé et propose un échange avec le commercial."],
+ ["Le prospect répond","Réponse","Le prospect demande à être rappelé vendredi à 14 h. La demande est rattachée à son dossier."],
  ["Validation humaine","Autoriser","Le commercial peut valider la relance avant l’envoi ou l’appel. Les règles de contact restent définies par l’entreprise."],
- ["La réponse crée la prochaine action","Suivre","Le prospect demande un rappel vendredi à 14 h. Le dossier et la tâche du commercial sont mis à jour."],
+ ["Le rappel est enregistré","Planifier","Le prospect demande un rappel vendredi à 14 h. Le dossier et la tâche du commercial sont mis à jour."],
  ]),
  scenario("chatbot","Service client","spark","Une vraie demande. Une réponse qui fait avancer.","Résoudre les demandes courantes et transmettre les situations délicates avec leur contexte.","La demande est prise en charge.",[
  ["Le client ouvre la discussion","Accueillir","Choisissez une situation dans la fenêtre de discussion : colis, retour ou client mécontent."],
@@ -61,3 +61,6 @@ export const workflows:WorkflowScenario[] = [
  ["Le résultat s’affiche dans votre application","Afficher","L’utilisateur reste dans votre interface. Vous choisissez le parcours, le traitement et les informations présentées."],
  ]),
 ];
+
+export function workflowSteps(item:WorkflowScenario,reviewEnabled:boolean):WorkflowStep[]{return item.steps.filter(step=>!step.review||reviewEnabled);}
+export function workflowPlan(item:WorkflowScenario,reviewEnabled:boolean){const steps=workflowSteps(item,reviewEnabled);const review=steps.findIndex(step=>step.review);return {stepCount:steps.length,approvalStep:review<0?null:review};}

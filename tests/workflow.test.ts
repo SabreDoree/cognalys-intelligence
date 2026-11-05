@@ -1,48 +1,43 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { workflowReducer, initialWorkflowState, workflowDelay, type WorkflowState } from "../src/lib/workflow-state";
-import { workflows } from "../src/config/workflows";
+import { workflowReducer, initialWorkflowState, workflowDelay, createWorkflowState } from "../src/lib/workflow-state";
+import { workflows, workflowPlan, workflowSteps } from "../src/config/workflows";
 import { demoComparisons } from "../src/config/demo-comparisons";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { DemoScene } from "../src/components/demo-scenes";
 import { quoteExample, quoteNet, quoteVat, invoiceExample, orderExample, carrierExample, urgencySignals } from "../src/config/demo-data";
 
-test("validation activée : ni le timer ni l’étape suivante ne franchissent le contrôle", () => {
-  let state = workflowReducer(initialWorkflowState, "start");
-  for (let i = 0; i < 10; i++) state = workflowReducer(state, "tick");
-  assert.equal(state.step, 4); assert.equal(state.phase, "approval");
-  assert.deepEqual(workflowReducer(state, "next"), state);
-  state = workflowReducer(state, "approve"); assert.equal(state.step, 5); assert.equal(state.phase, "running");
-  assert.equal(workflowReducer(state, "tick").phase, "complete");
+test("les validations s’appliquent seulement au devis et à la facture",()=>{
+ for(const item of workflows){
+  assert.equal(!!item.reviewLabel,["demande","facture"].includes(item.id));
+  for(const enabled of [true,false]){
+   const plan=workflowPlan(item,enabled),steps=workflowSteps(item,enabled);
+   let state=workflowReducer(createWorkflowState(plan),"start");
+   for(let i=0;i<15;i++)state=workflowReducer(state,"tick");
+   if(item.reviewLabel&&enabled){assert.equal(state.phase,"approval",item.id);assert.equal(steps[state.step].review,true);assert.deepEqual(workflowReducer(state,"next"),state);state=workflowReducer(state,"approve");state=workflowReducer(state,"tick");assert.equal(state.phase,"complete");}
+   else {assert.equal(plan.approvalStep,null,item.id);assert.equal(state.phase,"complete",item.id);}
+  }
+ }
 });
-test("validation désactivée : l’étape humaine est sautée et le parcours termine", () => {
-  let state = workflowReducer(initialWorkflowState, {type:"configure", approvalRequired:false});
-  state = workflowReducer(state, "start");
-  const visited: number[] = [];
-  for (let i=0; i<8; i++) {visited.push(state.step); state=workflowReducer(state,"tick");}
-  assert.ok(!visited.includes(4)); assert.equal(state.phase,"complete");
-  assert.equal(workflowReducer(state,"reset").approvalRequired,false);
+test("reset et changement de scénario conservent un plan cohérent",()=>{
+ let state=workflowReducer(initialWorkflowState,"start");state=workflowReducer(state,"next");
+ const plan=workflowPlan(workflows.find(item=>item.id==="telephone")!,true);
+ state=workflowReducer(state,{type:"configure",plan});
+ assert.equal(state.step,0);assert.equal(state.phase,"idle");assert.equal(state.approvalStep,null);
+ assert.deepEqual(workflowReducer(state,"reset"),state);
+ assert.deepEqual(workflowReducer(state,"approve"),state);
 });
-test("changer le contrôle remet un parcours en cours au départ", () => {
-  const state = workflowReducer({...initialWorkflowState,step:4,phase:"approval"},{type:"configure",approvalRequired:false});
-  assert.deepEqual(state,{step:0,phase:"idle",approvalRequired:false});
-  assert.deepEqual(workflowReducer(state,"approve"),state);
+test("pause et pas à pas ne contournent pas une validation utile",()=>{
+ let state=workflowReducer(initialWorkflowState,"start");state=workflowReducer(state,"pause");
+ assert.deepEqual(workflowReducer(state,"tick"),state);
+ for(let i=0;i<4;i++)state=workflowReducer(state,"next");
+ assert.equal(state.phase,"approval");assert.deepEqual(workflowReducer(state,"resume"),state);
 });
-test("pause, étape manuelle et reprise conservent le contrôle choisi", () => {
-  let state: WorkflowState = {...initialWorkflowState,step:2,phase:"running"};
-  state=workflowReducer(state,"pause");
-  assert.deepEqual(workflowReducer(state,"tick"),state);
-  state=workflowReducer(state,"next"); assert.equal(state.step,3); assert.equal(state.phase,"paused");
-  state=workflowReducer(state,"next"); assert.equal(state.phase,"approval");
-  assert.deepEqual(workflowReducer(state,"reset"),initialWorkflowState);
-});
-test("lecture : temps de lecture accru pour les sources révélées successivement", () => {
-  assert.ok(workflowDelay(false)>=7500); assert.ok(workflowDelay(true)>=10000);
-});
-test("chaque scénario dispose d’un contrôle optionnel et d’hypothèses de durée", () => {
-  assert.equal(new Set(workflows.map(item=>item.id)).size,workflows.length);
-  for(const scenario of workflows){assert.equal(scenario.steps.length,6,scenario.id);assert.equal(scenario.steps[4].title,"Validation humaine",scenario.id);assert.ok(demoComparisons[scenario.id]?.scope,scenario.id);}
+test("chaque parcours a des scènes et des hypothèses cohérentes",()=>{
+ assert.equal(new Set(workflows.map(item=>item.id)).size,workflows.length);
+ for(const item of workflows){assert.ok(demoComparisons[item.id]?.scope);assert.equal(item.steps[0].scene,0);assert.equal(item.steps.at(-1)?.scene,5);assert.ok(workflowDelay(item.id==="telephone")>=11000);}
+ assert.deepEqual(workflowSteps(workflows.find(item=>item.id==="suivi")!,true).map(step=>step.verb),["Repérer","Vérifier","Contacter","Réponse","Planifier"]);
 });
 
 function scene(id:string, step:number, overrides:Record<string,unknown>={}) {
@@ -72,9 +67,17 @@ test("insatisfaction : signalement visible, collecte du contact puis reprise hum
 test("appel, relance et application : résultats distincts selon la variante",()=>{
  assert.match(scene("telephone",2),/samedi/);assert.match(scene("telephone",3),/Je confirme/);
  assert.match(scene("telephone",5),/camille@horizon.example/);
- assert.match(scene("suivi",3,{channel:"call"}),/Assistant vocal/);
- assert.match(scene("suivi",3,{channel:"email"}),/EMAIL PRÊT/);
+ assert.match(scene("suivi",2,{channel:"call"}),/Assistant vocal/);
+ assert.match(scene("suivi",2,{channel:"email"}),/EMAIL ENVOYÉ/);
  assert.match(scene("application",5),/Monstera/);
  assert.match(scene("application",5,{appKind:"property"}),/Fissure apparente/);
  assert.ok(workflows.some(s=>s.id==="application"));assert.ok(!workflows.some(s=>s.id==="rapport"));
+});
+
+test("l’appel présente une forme d’onde et aucune bulle de chat",()=>{
+ const call=scene("telephone",2);assert.match(call,/call-waveform/);assert.match(call,/APPEL EN COURS/);assert.ok(!call.includes("conversation-line"));
+});
+test("la relance sépare le contact envoyé, la réponse et la tâche",()=>{
+ assert.match(scene("suivi",2),/EMAIL ENVOYÉ/);assert.ok(!scene("suivi",2).includes("vendredi à 14 h"));
+ assert.match(scene("suivi",3),/vendredi à 14 h/);assert.ok(!scene("suivi",3).includes("crm-task"));assert.match(scene("suivi",5),/crm-task/);
 });

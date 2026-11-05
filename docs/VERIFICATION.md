@@ -30,3 +30,7 @@ Suppression de la liste d’étapes répétée et de la comparaison ouverte par 
 ## Refonte des cas concrets — 5 novembre 2026
 
 Positionnement commercial fondé sur les demandes traitées et le travail manuel réduit, sans promesse de revenu ou gain mesuré. Sept scènes, séquences de dialogues, surlignages et résultats fictifs. Devis calculé à partir de 8 passages × 48 € HT ; facture 240 € HT + 48 € TVA = 288 € TTC ; stock 24 − 2 = 22. Les tests vérifient les valeurs et rendus importants, les variantes de conversation et les deux branches du contrôle humain. Les simulations ne déclenchent aucun appel, message, paiement ni traitement de photo réel.
+
+## Révision responsive et réalisme des contrôles — 5 novembre 2026
+
+Grille bornée par la hauteur disponible, navigation latérale remplacée par une sélection sur mobile, lecture interne et commandes persistantes. Plans de parcours de longueur variable et points de validation explicites : devis et facture uniquement. Tests couvrant tous les plans, le contrôle humain, la chronologie des relances et l’interface d’appel. La recette navigateur locale par fichier n’est pas disponible ; la version publique sert à la vérification visuelle.

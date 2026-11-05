@@ -180,3 +180,9 @@ Sept parcours fictifs : demande de devis, accueil téléphonique, facture reçue
 Une étape à la fois, 11 secondes par étape, 16 secondes pour les conversations et lectures longues, ou mode pas à pas. Le choix ON/OFF de validation humaine est conservé entre les scénarios ; son changement remet le parcours au départ. OFF saute le point de validation. Le cas d’insatisfaction continue à transmettre à un conseiller : une escalade n’est pas une validation préalable. Le changement de canal, de question ou d’application réinitialise le parcours. Les animations sont réduites selon les préférences du système.
 
 Les affirmations d’hébergement des solutions sur les serveurs Cognalys proviennent du commanditaire ; elles ne décrivent pas l’hébergement du site vitrine sur GitHub Pages. Les projets médicaux/pharmaceutiques nécessitent une vérification préalable des exigences applicables ; aucune certification HDS ou conformité sectorielle générale n’est revendiquée.
+
+## Révision compacte et responsive
+
+Le simulateur utilise une grille de hauteur liée à `100svh`, avec liste latérale sur ordinateur et sélection sur mobile. Commandes fixes dans le composant ; seul le document ou la conversation peut défiler. Les estimations s’ouvrent dans une boîte de dialogue accessible. Les marges, le hero, la méthode, les exemples et la FAQ ont été condensés.
+
+La validation n’est proposée que pour le devis (relecture avant envoi) et la facture (données avant classement). Les autres parcours s’enchaînent automatiquement : l’escalade vers un conseiller en cas d’insatisfaction reste distincte d’une validation préalable. La relance suit l’ordre : dossier sans réponse, conditions vérifiées, contact effectué, réponse reçue, rappel enregistré. L’accueil téléphonique présente une grande forme d’onde, une identité d’appel et une transcription ; aucun audio réel.
