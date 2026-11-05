@@ -53,7 +53,7 @@ export const siteConfig = {
   },
   nav: [
     { label: "Démonstrations", href: "/#demonstration" },
-    { label: "Exemples concrets", href: "/#solutions" },
+    { label: "Réalisations", href: "/realisations" },
     { label: "Comment ça marche", href: "/#methode" },
     { label: "FAQ", href: "/#faq" },
   ],

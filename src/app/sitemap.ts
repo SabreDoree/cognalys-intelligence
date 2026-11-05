@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (!isIndexable()) return [];
   return [
     { url: siteConfig.url, changeFrequency: "monthly", priority: 1 },
+    { url: `${siteConfig.url}/realisations`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteConfig.url}/mentions-legales`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteConfig.url}/confidentialite`, changeFrequency: "yearly", priority: 0.2 },
   ];
