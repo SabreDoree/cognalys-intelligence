@@ -43,6 +43,7 @@ export const siteConfig = {
     updatedAt: "",
   },
   form: {
+    formspreeEndpoint: "https://formspree.io/f/mqppjnzg",
     minFillMs: 2_000,
     tokenMaxAgeMs: 30 * 60_000,
     maxBodyBytes: 16_384,
