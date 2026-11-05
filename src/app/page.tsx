@@ -5,6 +5,7 @@ import { Icon } from "@/components/icon";
 import { ExistingTools } from "@/components/existing-tools";
 import { WorkflowDemo } from "@/components/workflow-demo";
 import { ContactForm } from "@/components/contact-form";
+import { LandingHero } from "@/components/landing-hero";
 import { RealisationPreview } from "@/components/realisation-preview";
 export const metadata:Metadata={...(siteConfig.url?{alternates:{canonical:siteConfig.url}}:{})};
 const benefits=[
@@ -18,7 +19,7 @@ const faqIndexes=[0,2,4,6,7,8,9];
 export default function Home(){
  const schema={"@context":"https://schema.org","@type":"Organization",name:siteConfig.name,description:siteConfig.description,...(siteConfig.url?{url:siteConfig.url,logo:`${siteConfig.url}/wordmark.svg`}:{}),...(siteConfig.contact.email?{email:siteConfig.contact.email}:{})};
  return <main id="contenu" className="home-compact"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema).replace(/</g,"\\u003c")}}/>
-  <section className="compact-hero shell" aria-labelledby="hero-heading"><h1 id="hero-heading">Traitez plus de clients.<br/><span>Réduisez le travail manuel.</span></h1><p>Devis envoyés, clients renseignés, prospects relancés.<br className="desktop-break"/> Des solutions adaptées à votre activité, quel que soit votre secteur.</p><div className="compact-hero-actions"><a className="button button-cyan" href="#demonstration">Voir les cas concrets<Icon name="play"/></a><a className="text-link" href="#contact">Parlons de votre projet<Icon name="arrowUpRight"/></a></div></section>
+  <LandingHero/>
   <section id="demonstration" className="compact-demo-section" aria-labelledby="demo-heading"><div className="shell"><div className="compact-section-heading"><h2 id="demo-heading">Essayez sur un cas concret.</h2><p>Choisissez un cas. Regardez le résultat.</p></div><WorkflowDemo/></div></section>
   <ExistingTools/>
   <RealisationPreview/>
