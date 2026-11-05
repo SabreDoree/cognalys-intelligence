@@ -20,7 +20,7 @@ export function WorkflowDemo(){
  useEffect(()=>{if(!running||manual)return;const timer=window.setTimeout(()=>dispatch("tick"),workflowDelay(longReading));return()=>window.clearTimeout(timer);},[state,manual,running,longReading]);
  useEffect(()=>{scroller.current?.scrollTo({top:0,behavior:"instant"});},[scenarioIndex,state.step,topic,channel,appKind]);
  useEffect(()=>{const node=dialog.current;if(!node)return;if(modal&&!node.open)node.showModal();else if(!modal&&node.open)node.close();},[modal]);
- function alignSimulator(){shell.current?.scrollIntoView({block:"start",behavior:"auto"});}
+ function alignSimulator(){const node=shell.current;if(!node)return;const rect=node.getBoundingClientRect();const header=document.querySelector(".site-header")?.getBoundingClientRect().height??72;if(rect.top<header+8||rect.bottom>window.innerHeight-8)node.scrollIntoView({block:"start",behavior:"instant"});}
  function select(index:number){alignSimulator();setScenarioIndex(index);dispatch({type:"configure",plan:workflowPlan(workflows[index],reviewEnabled)});}
  function toggleReview(){setReviewEnabled(!reviewEnabled);dispatch({type:"configure",plan:workflowPlan(scenario,!reviewEnabled)});}
  const status=idle?"Prêt":approval?"À valider":done?"Terminé":state.phase==="paused"?"En pause":manual?"Pas à pas":"En cours";
