@@ -7,3 +7,5 @@ La police Manrope est fournie par `@fontsource-variable/manrope` et est distribu
 Les dépendances restent régies par les licences de leurs auteurs, disponibles dans leurs paquets après `npm ci`. Le verrouillage exact est dans `package-lock.json`.
 
 `public/og-image.svg` est la source vectorielle de l’image de partage `public/og-image.png`. `public/icon.svg` est la source du favicon et de l’icône Apple.
+
+Les dix marques de la section « Gardez vos outils » identifient les logiciels cités dans des exemples de connexion. Les visuels sont servis depuis `public/integrations/`. Le logo de [Cegid](https://www.cegid.com/fr/wp-content/uploads/sites/7/2026/08/cegid-logo-blue-rgb.svg) provient de l’éditeur. Les marques de Microsoft, Google, SAP, Salesforce, WordPress et Shopify proviennent de [SVG Logos](https://github.com/gilbarbara/logos), celle de Sage de [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/sage.svg), celles de HubSpot et Brevo des [icônes de connecteurs n8n](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes). Les marques appartiennent à leurs titulaires. Le boîtier Cognalys est une illustration originale.

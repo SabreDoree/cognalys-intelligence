@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="160" viewBox="0 0 200 160" fill="none">
+  <defs>
+    <linearGradient id="lid" x1="24" y1="27" x2="150" y2="105" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#81DFFF"/><stop offset=".32" stop-color="#5C9BFF"/><stop offset=".68" stop-color="#5264EE"/><stop offset="1" stop-color="#7042CB"/>
+    </linearGradient>
+    <linearGradient id="left" x1="19" y1="54" x2="99" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#547EEC"/><stop offset=".52" stop-color="#314DBA"/><stop offset="1" stop-color="#293983"/>
+    </linearGradient>
+    <linearGradient id="right" x1="98" y1="110" x2="192" y2="65" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#332B81"/><stop offset=".6" stop-color="#513BAF"/><stop offset="1" stop-color="#9464E6"/>
+    </linearGradient>
+    <linearGradient id="light" x1="15" y1="92" x2="185" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#43D9FF"/><stop offset=".36" stop-color="#A5FBFF"/><stop offset=".57" stop-color="#B2BCFF"/><stop offset="1" stop-color="#C994FF"/>
+    </linearGradient>
+    <radialGradient id="ground"><stop stop-color="#373E98" stop-opacity=".35"/><stop offset="1" stop-color="#5353A4" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="101" cy="122" rx="97" ry="32" fill="url(#ground)"/>
+  <!-- Lower chassis, with a recessed illuminated seam between the two plates. -->
+  <path d="M18 83 96 44Q100 42 104 44L182 83Q187 86 187 90V99Q187 103 182 106L105 145Q100 148 95 145L18 106Q13 103 13 99V90Q13 86 18 83Z" fill="#222B66"/>
+  <path d="m14 91 82 41q4 2 8 0l82-41v8q0 4-5 7l-77 39q-4 2-8 0l-78-39q-4-3-4-7Z" fill="url(#right)"/>
+  <path d="m14 91 83 41 3 1v13l-4-1-78-39q-4-3-4-7Z" fill="url(#left)"/>
+  <path d="M17 88 96 49q4-2 8 0l79 39q5 3 0 6l-79 40q-4 2-8 0L17 94q-5-3 0-6Z" fill="#8792E1"/>
+  <path d="m20 82 77 38q3 2 6 0l77-38v9l-77 39q-3 1-6 0L20 91Z" fill="#232F76"/>
+  <path d="m20 86 77 38q3 2 6 0l77-38" stroke="url(#light)" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Top casing and polished bevel. -->
+  <path d="M14 61 95 20q5-2 10 0l81 41v20q0 3-5 6l-76 39q-5 2-10 0L19 87q-5-3-5-6Z" fill="url(#left)"/>
+  <path d="m100 106 86-45v20q0 3-5 6l-76 39-5 1Z" fill="url(#right)"/>
+  <path d="M17 56 95 17q5-3 10 0l78 39q8 4 0 9l-78 39q-5 3-10 0L17 65q-8-5 0-9Z" fill="url(#lid)" stroke="#A6C7FF" stroke-width="1.1"/>
+  <path d="m22 59 74-37q4-2 8 0l74 37q3 2 0 4l-74 37q-4 2-8 0L22 63q-3-2 0-4Z" stroke="#F1F7FF" stroke-opacity=".52" stroke-width=".85"/>
+  <path d="m17 65 78 39q5 3 10 0l78-39" stroke="#CCDEFF" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- The C is set into the top face. -->
+  <g transform="matrix(.97 .48 -1 .50 99 59)">
+    <path d="M18-15a25 25 0 1 0 0 30l-8-6a15 15 0 1 1 0-18Z" fill="#263C9A" opacity=".45" transform="translate(1.6 2.6)"/>
+    <path d="M18-15a25 25 0 1 0 0 30l-8-6a15 15 0 1 1 0-18Z" fill="#F8FBFF"/>
+  </g>
+  <!-- Machined vents and status lights on the front faces. -->
+  <path d="m47 90 5 2.5m1 1 5 2.5m1 1 5 2.5" stroke="#192E75" stroke-width="2.7" stroke-linecap="round"/>
+  <path d="m119 104 12-6" stroke="#B1F5FF" stroke-width="2.7" stroke-linecap="round"/>
+  <path d="m135 96 3-1.5" stroke="#AA9AFF" stroke-width="2.7" stroke-linecap="round"/>
+  <g fill="#142454" stroke="#98B8F8" stroke-width="1.2">
+    <path d="m13 80 17 8v12l-17-8Z"/><path d="m187 80-17 8v12l17-8Z"/>
+  </g>
+  <g stroke="#546EA9" stroke-width="1.4" stroke-linecap="round">
+    <path d="m17 86 8 4m-8 0 8 4m158-8-8 4m8 0-8 4"/>
+  </g>
+</svg>
