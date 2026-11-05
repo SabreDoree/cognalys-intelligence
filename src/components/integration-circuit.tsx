@@ -1,62 +1,55 @@
+import Image from "next/image";
 import styles from "./existing-tools.module.css";
 
-type Side = "from" | "to";
+export type Station = { id: string; name: string; event: string };
 
-function wire(index: number, side: Side, stacked: boolean) {
-  if (stacked) {
-    const x = 32 + 64 * index;
-    return side === "from"
-      ? `M${x} 64 V68 C${x} 95 77 83 77 115 V127 Q77 143 93 143 H109`
-      : `M211 143 H227 Q243 143 243 159 V173 C243 199 ${x} 193 ${x} 219 V226`;
-  }
-
-  const y = 32 + 64 * index;
-  return side === "from"
-    ? `M171 ${y} H188 C230 ${y} 222 160 253 160 H265`
-    : `M435 160 H447 C478 160 470 ${y} 512 ${y} H529`;
+function Cable({ outgoing = false }: { outgoing?: boolean }) {
+  const path = outgoing ? "M0 18H50C64 18 68 7 82 7H120" : "M0 7H38C52 7 56 18 70 18H120";
+  return <div className={`${styles.leg} ${outgoing ? styles.outgoing : styles.incoming}`} aria-hidden="true">
+    <div className={styles.wire}>
+      <svg viewBox="0 0 120 28" preserveAspectRatio="none" focusable="false">
+        <path d={path} className={styles.sheath} /><path d={path} className={styles.filament} />
+      </svg>
+      <span className={styles.arrowhead} />
+      <svg className={styles.packet} viewBox="0 0 16 19" focusable="false">
+        <path d="M2 1h8l4 4v12H2Z" fill="currentColor" stroke="#15264f" strokeWidth="1.2" strokeLinejoin="round" />
+        <path d="M10 1v5h4M5 9h6m-6 3h4" fill="none" stroke="#263e65" strokeWidth="1.15" strokeLinecap="round" />
+      </svg>
+      <span className={styles.plug}><svg viewBox="0 0 23 18" focusable="false">
+        <path d="M15 6h7m-7 6h7" fill="none" stroke="#dae6ff" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="m1 6 5-4h9l2 2v10l-2 2H6l-5-4Z" fill="currentColor" stroke="#263654" strokeWidth="1.4" />
+        <path d="M6 4h8M7 7v5m4-5v5" fill="none" stroke="#fff" strokeOpacity=".8" strokeWidth="1.4" />
+      </svg></span>
+    </div>
+  </div>;
 }
 
-function Plug({ x, y, output }: { x: number; y: number; output: boolean }) {
-  return <g transform={`translate(${x} ${y}) scale(${output ? -1 : 1} 1)`}>
-    <g className={styles.plugSlide}>
-      <path d="M-21 0h9" stroke="#45557e" strokeWidth="3" strokeLinecap="round" />
-      <path d="M0-2.6h6M0 2.6h6" stroke="#526589" strokeWidth="2" strokeLinecap="round" />
-      <path d="m-14-3 4-3H0l2 2v8l-2 2h-10l-4-3Z" fill="currentColor" stroke="#35477c" strokeWidth=".8" />
-      <path d="M-10-4H0M-8-1v4m3-4v4" fill="none" stroke="#fff" strokeOpacity=".72" strokeWidth="1.2" strokeLinecap="round" />
-    </g>
-  </g>;
+function LogoTile({ station, side, assetPath }: { station: Station; side: "source" | "destination"; assetPath: string }) {
+  return <div className={`${styles.station} ${styles[side]}`}>
+    <span className={styles.role}>{side === "source" ? "Départ" : "Arrivée"}</span>
+    <div className={styles.tile} data-logo={station.id}>
+      <Image src={`${assetPath}/${station.id}.svg`} alt="" width={80} height={80} unoptimized />
+    </div>
+  </div>;
 }
 
-export function IntegrationCircuit({ active, count, stacked, hubUrl }: {
-  active: number; count: number; stacked: boolean; hubUrl: string;
-}) {
-  const ports = stacked ? { left: 106, right: 214, y: 143 } : { left: 262, right: 438, y: 160 };
-  const hub = stacked ? { x: 96, y: 86, width: 128 } : { x: 246, y: 67, width: 208 };
-  return <svg className={stacked ? styles.stackedCircuit : styles.wideCircuit} viewBox={stacked ? "0 0 320 290" : "0 0 700 320"} aria-hidden="true" focusable="false">
-    {(["from", "to"] as const).map(side => {
-      const activeWire = wire(active, side, stacked);
-      return <g key={side} className={side === "from" ? styles.input : styles.output}>
-        {Array.from({ length: count }, (_, index) => (
-          <path key={index} d={wire(index, side, stacked)} className={styles.trace} />
-        ))}
-        <g key={active}>
-          <path d={activeWire} className={styles.routeGlow} />
-          <path d={activeWire} className={styles.route} />
-          <path d={activeWire} pathLength="1" className={styles.signal} />
-        </g>
-      </g>;
-    })}
-    <g transform={`translate(${hub.x} ${hub.y}) scale(${hub.width / 200})`}>
-      <g key={active}>
-        <path className={styles.hubRipple} d="m4 98 91-46q5-3 10 0l91 46q5 3 0 6l-91 46q-5 3-10 0L4 104q-5-3 0-6Z" />
-        <image href={hubUrl} width="200" height="160" />
+export function IntegrationCircuit({ from, to, assetPath }: { from: Station; to: Station; assetPath: string }) {
+  return <div className={styles.diagram} role="img" aria-label={`De ${from.name} vers ${to.name} via Cognalys. ${from.event}. ${to.event}.`}>
+    <div className={styles.rail}>
+      <LogoTile station={from} side="source" assetPath={assetPath} />
+      <Cable />
+      <svg className={styles.hub} viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+        <ellipse className={styles.hubGlow} cx="100" cy="118" rx="82" ry="27" />
+        <image href={`${assetPath}/cognalys-hub.svg`} width="200" height="160" />
         <path className={styles.hubLight} d="m20 86 77 38q3 2 6 0l77-38" />
-      </g>
-    </g>
-    <g key={active}>
-      <g className={styles.input}><Plug x={ports.left} y={ports.y} output={false} /></g>
-      <g className={styles.output}><Plug x={ports.right} y={ports.y} output /></g>
-    </g>
-    <text x={stacked ? 160 : 350} y={stacked ? 195 : 244} textAnchor="middle" className={styles.hubName}>Cognalys</text>
-  </svg>;
+      </svg>
+      <Cable outgoing />
+      <LogoTile station={to} side="destination" assetPath={assetPath} />
+    </div>
+    <div className={styles.stationNames}>
+      <div><strong>{from.name}</strong><span>{from.event}</span></div>
+      <strong className={styles.hubName}>Cognalys</strong>
+      <div><strong>{to.name}</strong><span>{to.event}</span></div>
+    </div>
+  </div>;
 }

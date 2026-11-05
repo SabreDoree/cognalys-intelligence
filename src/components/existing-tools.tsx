@@ -1,49 +1,64 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { Icon } from "./icon";
-import { IntegrationCircuit } from "./integration-circuit";
+import { IntegrationCircuit, type Station } from "./integration-circuit";
 import styles from "./existing-tools.module.css";
 
 const assetPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/integrations`;
-const exampleDuration = 7200;
+const exampleDuration = 10000;
 
 const examples = [
   {
-    from: { id: "wordpress", name: "WordPress" }, to: { id: "hubspot", name: "HubSpot" },
-    title: "Du formulaire à la fiche contact",
-    description: "Une demande reçue sur WordPress crée une fiche prospect dans HubSpot.",
+    label: "Contacts", title: "Créer une fiche prospect",
+    from: { id: "wordpress", name: "WordPress", event: "Formulaire envoyé" },
+    to: { id: "hubspot", name: "HubSpot", event: "Contact créé" },
+    data: "Nom, e-mail et téléphone du prospect",
   },
   {
-    from: { id: "shopify", name: "Shopify" }, to: { id: "sage", name: "Sage" },
-    title: "De la commande à la comptabilité",
-    description: "Une commande passée sur Shopify alimente le journal des ventes dans Sage.",
+    label: "Ventes", title: "Reporter une vente en comptabilité",
+    from: { id: "shopify", name: "Shopify", event: "Commande payée" },
+    to: { id: "sage", name: "Sage", event: "Vente enregistrée" },
+    data: "Référence de commande, montant et TVA",
   },
   {
-    from: { id: "google-workspace", name: "Google Workspace" }, to: { id: "salesforce", name: "Salesforce" },
-    title: "De l’agenda au suivi client",
-    description: "Un rendez-vous de Google Agenda s’ajoute à la fiche du client dans Salesforce.",
+    label: "Agenda", title: "Retrouver un rendez-vous dans le CRM",
+    from: { id: "google-workspace", name: "Google Workspace", event: "Rendez-vous ajouté" },
+    to: { id: "salesforce", name: "Salesforce", event: "Activité ajoutée" },
+    data: "Date, participants et objet du rendez-vous",
   },
   {
-    from: { id: "cegid", name: "Cegid" }, to: { id: "microsoft-365", name: "Microsoft 365" },
-    title: "De la facture au dossier partagé",
-    description: "Une facture validée dans Cegid est classée dans un dossier OneDrive de Microsoft 365.",
+    label: "Factures", title: "Classer une facture dans OneDrive",
+    from: { id: "cegid", name: "Cegid", event: "Facture validée" },
+    to: { id: "microsoft-365", name: "Microsoft 365", event: "PDF classé" },
+    data: "PDF de la facture et référence client",
   },
   {
-    from: { id: "sap", name: "SAP" }, to: { id: "brevo", name: "Brevo" },
-    title: "De l’expédition au message de suivi",
-    description: "Une expédition enregistrée dans SAP déclenche l’envoi d’un e-mail de suivi via Brevo.",
+    label: "Expéditions", title: "Envoyer le suivi d’un colis",
+    from: { id: "sap", name: "SAP", event: "Colis expédié" },
+    to: { id: "brevo", name: "Brevo", event: "E-mail envoyé" },
+    data: "Adresse e-mail et numéro de suivi",
   },
-];
+] satisfies { label: string; title: string; from: Station; to: Station; data: string }[];
+
+// Superposer les libellés réserve leur hauteur réelle, même avec un fort zoom.
+function ExampleCopy({ active, field }: { active: number; field: "title" | "data" }) {
+  return <span className={styles.copySlot}>{examples.map((example, index) => (
+    <span key={example.from.id} aria-hidden={index !== active || undefined}>{example[field]}</span>
+  ))}</span>;
+}
+
+type Playback = "auto" | "paused" | "once";
 
 export function ExistingTools() {
   const figure = useRef<HTMLElement>(null);
+  const options = useRef<Array<HTMLButtonElement | null>>([]);
   const [active, setActive] = useState(0);
-  const [playback, setPlayback] = useState<"auto" | "paused" | "once">("auto");
-  const autoPlay = playback === "auto";
+  const [playback, setPlayback] = useState<Playback>("auto");
   const [motionAvailable, setMotionAvailable] = useState(false);
-  const running = autoPlay && motionAvailable;
+  const [reading, setReading] = useState(false);
+  const autoAdvance = playback === "auto" && motionAvailable && !reading;
   const current = examples[active];
 
   useEffect(() => {
@@ -53,9 +68,9 @@ export function ExistingTools() {
     let inView = false;
     const update = () => setMotionAvailable(inView && !document.hidden && !motion.matches);
     const observer = new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
+      inView = entry.isIntersecting && entry.intersectionRatio >= .35;
       update();
-    });
+    }, { threshold: [0, .35] });
     observer.observe(element);
     motion.addEventListener("change", update);
     document.addEventListener("visibilitychange", update);
@@ -67,59 +82,75 @@ export function ExistingTools() {
   }, []);
 
   useEffect(() => {
-    if (!running) return;
+    if (!autoAdvance) return;
     const timer = window.setInterval(() => setActive(index => (index + 1) % examples.length), exampleDuration);
     return () => window.clearInterval(timer);
-  }, [running]);
+  }, [autoAdvance]);
 
-  function selectExample(index: number) {
-    setPlayback("once");
+  function choose(index: number) {
     setActive(index);
+    setPlayback("once");
+  }
+
+  function moveChoice(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    const last = examples.length - 1;
+    const positions: Record<string, number> = {
+      ArrowLeft: (index + last) % examples.length,
+      ArrowRight: (index + 1) % examples.length,
+      Home: 0, End: last,
+    };
+    const next = positions[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    choose(next);
+    options.current[next]?.focus();
   }
 
   return <section id="outils" className={`shell ${styles.section}`} aria-labelledby="existing-tools-heading">
     <div className={styles.copy}>
       <p className={styles.eyebrow}>Intégrations</p>
       <h2 id="existing-tools-heading">Gardez vos outils.{" "}<span>Nous les faisons travailler ensemble.</span></h2>
-      <p className={styles.intro}>Nous relions votre site, votre messagerie et vos logiciels métier. Votre équipe retrouve chaque information dans l’outil qu’elle utilise déjà.</p>
-      <p className={styles.note}>Nous vérifions les connexions possibles selon votre abonnement et les accès fournis par chaque éditeur.</p>
+      <p className={styles.intro}>Votre équipe continue d’utiliser ses logiciels habituels. Un contact, une vente ou une facture peut passer de l’un à l’autre sans double saisie.</p>
+      <p className={styles.note}>Nous vérifions avec vous les connexions que permettent vos accès et votre abonnement.</p>
     </div>
-    <figure className={styles.figure} ref={figure} data-motion={motionAvailable ? playback : "paused"} aria-label="Exemples de connexions entre logiciels">
-      <div className={styles.boardHeader}>
-        <span className={styles.boardTitle}><Icon name="workflow" />Connexions possibles</span>
-        <div className={styles.controls}>
-          <button type="button" className={styles.play} aria-label={autoPlay ? "Mettre les exemples en pause" : "Reprendre la lecture des exemples"} onClick={() => setPlayback(autoPlay ? "paused" : "auto")}>
-            <Icon name={autoPlay ? "pause" : "play"} /><span>{autoPlay ? "Pause" : "Lecture"}</span>
+
+    <figure className={styles.figure} ref={figure} aria-label="Exemples de connexions entre logiciels" data-motion={motionAvailable ? playback : "paused"}>
+      <div className={styles.scene}>
+        <div className={styles.sceneHeader}>
+          <div>
+            <p className={styles.exampleLabel}>Exemple de connexion</p>
+            <h3><ExampleCopy active={active} field="title" /></h3>
+          </div>
+          <button type="button" className={styles.play} aria-label={playback === "auto" ? "Mettre les exemples en pause" : "Reprendre la lecture des exemples"}
+            onClick={() => setPlayback(playback === "auto" ? "paused" : "auto")}>
+            <Icon name={playback === "auto" ? "pause" : "play"} /><span>{playback === "auto" ? "Pause" : "Lecture"}</span>
           </button>
-          <button type="button" aria-label="Exemple suivant" onClick={() => selectExample((active + 1) % examples.length)}><Icon name="arrow" /></button>
+        </div>
+        <div id="integration-example" aria-live={playback === "auto" ? "off" : "polite"} aria-atomic="true"
+          onPointerEnter={event => { if (event.pointerType === "mouse") setReading(true); }} onPointerLeave={() => setReading(false)}>
+          <IntegrationCircuit key={current.from.id} from={current.from} to={current.to} assetPath={assetPath} />
+          <p className={styles.payload}><Icon name="document" /><span>Données transmises</span><strong><ExampleCopy active={active} field="data" /></strong></p>
         </div>
       </div>
-      <div className={styles.field}>
-        <div className={styles.stage}>
-          <IntegrationCircuit active={active} count={examples.length} stacked={false} hubUrl={`${assetPath}/cognalys-hub.svg`} />
-          <IntegrationCircuit active={active} count={examples.length} stacked hubUrl={`${assetPath}/cognalys-hub.svg`} />
-          {(["from", "to"] as const).map(side => (
-            <div key={side} className={`${styles.bank} ${side === "from" ? styles.input : styles.output}`} role="group" aria-label={side === "from" ? "Outils de départ" : "Outils de destination"}>
-              {examples.map((example, index) => {
-                const tool = example[side];
-                const other = side === "from" ? example.to : example.from;
-                return <button type="button" key={tool.id} className={styles.brand} aria-pressed={active === index}
-                  aria-label={`${tool.name}, afficher l’exemple avec ${other.name}`} aria-controls="integration-example"
-                  onClick={() => selectExample(index)}>
-                  <span className={styles.mark} data-brand={tool.id}>
-                    <Image src={`${assetPath}/${tool.id}.svg`} alt="" width={40} height={40} unoptimized />
-                  </span>
-                  <span className={styles.brandName}>{tool.name}</span>
-                </button>;
-              })}
-            </div>
+
+      <fieldset className={styles.picker}
+        onFocus={() => setPlayback(mode => mode === "auto" ? "paused" : mode)}>
+        <legend>Choisir un exemple</legend>
+        <div className={styles.choices}>
+          {examples.map((example, index) => (
+            <button key={example.from.id} type="button" className={styles.choice} aria-pressed={index === active}
+              aria-controls="integration-example" aria-label={`${example.label}, de ${example.from.name} à ${example.to.name}`}
+              ref={button => { options.current[index] = button; }} onKeyDown={event => moveChoice(event, index)} onClick={() => choose(index)}>
+              <span className={styles.logoPair} aria-hidden="true">
+                <Image src={`${assetPath}/${example.from.id}.svg`} alt="" width={28} height={28} unoptimized />
+                <Icon name="arrow" />
+                <Image src={`${assetPath}/${example.to.id}.svg`} alt="" width={28} height={28} unoptimized />
+              </span>
+              <span>{example.label}</span>
+            </button>
           ))}
         </div>
-      </div>
-      <figcaption id="integration-example" className={styles.caption} aria-live={running ? "off" : "polite"} aria-atomic="true">
-        <div><strong>{current.title}</strong><p>{current.description}</p></div>
-        <div className={styles.steps} aria-hidden="true">{examples.map((item, index) => <i key={item.from.id} data-active={index === active} />)}</div>
-      </figcaption>
+      </fieldset>
     </figure>
   </section>;
 }
