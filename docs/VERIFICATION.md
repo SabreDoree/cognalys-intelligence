@@ -22,3 +22,7 @@ Aucun envoi réel ni publication publique. Compléter les coordonnées et inform
 ## Révision des démonstrations — 5 novembre 2026
 
 Sept parcours, comparaison avant/après et durées illustratives avec hypothèses et contrôle humain séparé. Simulations sans services externes ; pause, reprise, réinitialisation et arrêt humain conservés. Deux questions de chatbot prédéfinies. Mode de réduction des animations prévu. Compilation statique et TypeScript réussis, tests du workflow étendus pour vérifier les contraintes de chaque scénario.
+
+## Révision de lisibilité et contrôle optionnel — 5 novembre 2026
+
+Suppression de la liste d’étapes répétée et de la comparaison ouverte par défaut. Un seul détail actif, fondu progressif, commandes en haut, lecture 7,5 s / recherches 10 s et mode pas à pas. Interrupteur accessible de validation humaine, remise au départ lors du changement, saut de l’étape si OFF. Recherche illustrée de trois sources pour chatbot, factures, suivi, intégration et bilan ; aucune requête externe. Tests couvrant les deux branches, le contrôle en mode manuel, le changement de réglage et la cohérence des sources.

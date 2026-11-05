@@ -27,7 +27,7 @@ export default function Home() {
     </section>
 
     <section id="demonstration" className="section demo-section" aria-labelledby="demo-heading"><div className="shell">
-      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">01</span> ESSAYEZ PAR VOUS-MÊME</p><h2 id="demo-heading">Voyez ce que votre entreprise<br /><span className="accent">pourrait déléguer.</span></h2></div><p>Chatbot, accueil téléphonique, devis, factures… Choisissez un cas, comparez le travail avant et après, puis lancez le parcours animé. À l’étape sensible, vous gardez la main.</p></div>
+      <div className="section-intro"><div><p className="eyebrow"><span className="section-number">01</span> ESSAYEZ PAR VOUS-MÊME</p><h2 id="demo-heading">Voyez ce que votre entreprise<br /><span className="accent">pourrait déléguer.</span></h2></div><p>Chatbot, accueil téléphonique, devis, factures… Choisissez un cas et découvrez chaque étape à votre rythme. Avec ou sans validation humaine : à vous de choisir.</p></div>
       <WorkflowDemo />
     </div></section>
 
