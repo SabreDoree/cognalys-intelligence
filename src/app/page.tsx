@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig, legalReady } from "@/config/site";
 import { contactMode } from "@/lib/contact-handler";
 import { Icon } from "@/components/icon";
+import { ExistingTools } from "@/components/existing-tools";
 import { WorkflowDemo } from "@/components/workflow-demo";
 import { ContactForm } from "@/components/contact-form";
 export const metadata:Metadata={...(siteConfig.url?{alternates:{canonical:siteConfig.url}}:{})};
@@ -18,6 +19,7 @@ export default function Home(){
  return <main id="contenu" className="home-compact"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema).replace(/</g,"\\u003c")}}/>
   <section className="compact-hero shell" aria-labelledby="hero-heading"><h1 id="hero-heading">Traitez plus de clients.<br/><span>Réduisez le travail manuel.</span></h1><p>Devis envoyés, clients renseignés, prospects relancés.<br className="desktop-break"/> Des solutions adaptées à votre activité, quel que soit votre secteur.</p><div className="compact-hero-actions"><a className="button button-cyan" href="#demonstration">Voir les cas concrets<Icon name="play"/></a><a className="text-link" href="#contact">Parlons de votre projet<Icon name="arrowUpRight"/></a></div></section>
   <section id="demonstration" className="compact-demo-section" aria-labelledby="demo-heading"><div className="shell"><div className="compact-section-heading"><h2 id="demo-heading">Essayez sur un cas concret.</h2><p>Choisissez un cas. Regardez le résultat.</p></div><WorkflowDemo/></div></section>
+  <ExistingTools/>
   <section id="solutions" className="compact-section shell" aria-labelledby="solutions-heading"><h2 id="solutions-heading">Ce que vous pouvez y gagner.</h2><div className="compact-benefits">{benefits.map(item=><article key={item.title}><Icon name={item.icon}/><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><p className="compact-invitation">Un autre besoin ? <a href="#contact">Nous étudions aussi les projets hors de ces exemples.<Icon name="arrowUpRight"/></a></p></section>
   <section id="methode" className="compact-method compact-section" aria-labelledby="method-heading"><div className="shell"><h2 id="method-heading">Du besoin à la mise en service.</h2><ol>{method.map((text,index)=><li key={text}><span>{index+1}</span>{text}</li>)}</ol></div></section>
   <section id="faq" className="compact-section shell compact-faq" aria-labelledby="faq-heading"><h2 id="faq-heading">Les réponses utiles.</h2><div className="faq-list">{faqIndexes.map(index=>siteConfig.faq[index]).map(item=><details className="faq-item" name="faq" key={item.question}><summary><span>{item.question}</span><Icon name="plus"/></summary><div className="faq-answer"><p>{item.answer}</p></div></details>)}</div></section>
