@@ -18,7 +18,7 @@ for (const entry of await readdir(root)) {
 }
 await symlink(path.join(root, 'node_modules'), path.join(stage, 'node_modules'), 'dir');
 const result = spawnSync(process.execPath, [path.join(root, 'node_modules/next/dist/bin/next'), 'build', '--webpack'], {
- cwd: stage, stdio: 'inherit', env: { ...process.env, STATIC_EXPORT: 'true', NEXT_PUBLIC_STATIC_EXPORT: 'true', NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH || '/cognalys-intelligence' }
+ cwd: stage, stdio: 'inherit', env: { ...process.env, STATIC_EXPORT: 'true', NEXT_PUBLIC_STATIC_EXPORT: 'true', NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH ?? '/cognalys-intelligence' }
 });
 if (result.status !== 0) process.exit(result.status || 1);
 await rm(path.join(root, 'out'), { recursive: true, force: true });
