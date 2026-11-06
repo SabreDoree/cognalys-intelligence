@@ -25,9 +25,9 @@ jobs:
       - run: npm ci
       - run: npm run build:pages
         env:
-          NEXT_PUBLIC_BASE_PATH: /cognalys-intelligence
-          NEXT_PUBLIC_SITE_URL: https://sabredoree.github.io/cognalys-intelligence
-          SITE_INDEXABLE: 'false'
+          NEXT_PUBLIC_BASE_PATH: ''
+          NEXT_PUBLIC_SITE_URL: https://cognalys-intelligence.fr
+          SITE_INDEXABLE: 'true'
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
