@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { Icon } from "./icon";
 import { IntegrationCircuit, type Station } from "./integration-circuit";
-import { IntegrationBand } from "./integration-band";
 import styles from "./existing-tools.module.css";
 
 const assetPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/integrations`;
@@ -153,6 +152,5 @@ export function ExistingTools() {
         </div>
       </fieldset>
     </figure>
-    <IntegrationBand />
   </section>;
 }

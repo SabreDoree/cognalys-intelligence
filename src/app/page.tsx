@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig, legalReady } from "@/config/site";
 import { contactMode } from "@/lib/contact-handler";
 import { Icon } from "@/components/icon";
+import { IntegrationBand } from "@/components/integration-band";
 import { ExistingTools } from "@/components/existing-tools";
 import { WorkflowDemo } from "@/components/workflow-demo";
 import { CostCalculator } from "@/components/cost-calculator";
@@ -23,6 +24,7 @@ export default function Home(){
   <LandingHero/>
   <section id="demonstration" className="compact-demo-section" aria-labelledby="demo-heading"><div className="shell"><div className="compact-section-heading"><h2 id="demo-heading">Essayez sur un cas concret.</h2><p>Choisissez un cas. Regardez le résultat.</p></div><WorkflowDemo/></div></section>
   <ExistingTools/>
+  <IntegrationBand/>
   <RealisationPreview/>
   <section id="solutions" className="compact-section shell" aria-labelledby="solutions-heading"><h2 id="solutions-heading">Ce que vous pouvez y gagner.</h2><div className="compact-benefits">{benefits.map(item=><article key={item.title}><Icon name={item.icon}/><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><p className="compact-invitation">Un autre besoin ? <a href="#contact">Nous étudions aussi les projets hors de ces exemples.<Icon name="arrowUpRight"/></a></p></section>
   <CostCalculator/>

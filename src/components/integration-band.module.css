@@ -1,12 +1,30 @@
-.band{border-block:1px solid #e0e8f4;background:#f7faff;padding:28px 0 22px;grid-column:1/-1;min-width:0;overflow:hidden;border-radius:14px}.heading{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:0 28px 24px}.heading h3{font-size:22px;letter-spacing:-.035em}.heading p{font-size:12px;color:#657894;line-height:1.8;margin-top:7px}.viewport{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);margin-bottom:16px}.track{display:flex;width:max-content;animation:band-scroll 65s linear infinite}.track.reverse{animation-direction:reverse;animation-duration:75s}.track ul{display:flex;align-items:center;gap:45px;padding:8px 45px 8px 0;flex-shrink:0}.track li{display:flex;align-items:center;gap:11px;white-space:nowrap;font-size:18px;font-weight:650;color:#304867}.track img{object-fit:contain;width:28px;height:28px}.note{font-size:10px;line-height:1.8;color:#647791;padding:2px 28px 0}.band:hover .track,.band:focus-within .track{animation-play-state:paused}
-@keyframes band-scroll{to{transform:translateX(-50%)}}
-@media(max-width:760px){.heading{padding-inline:18px;align-items:flex-start;flex-direction:column;gap:12px}.heading h3{font-size:20px}.track li{font-size:16px}.track ul{gap:30px;padding-right:30px}.note{padding-inline:18px}.track img{width:25px;height:25px}}
-@media(prefers-reduced-motion:reduce){.track,.track.reverse{animation:none;width:auto}.track ul{flex-wrap:wrap;justify-content:center;padding:8px 18px;gap:20px}.track ul[aria-hidden=true]{display:none}.viewport{mask-image:none}}
-
-.heading{justify-content:center;text-align:center}.heading h3{font-weight:750}.heading h3{font-size:clamp(23px,2.6vw,32px)}
-@media(max-width:760px){.heading{align-items:center}}
-
-:global([data-theme="dark"]) .band { background: var(--bg-raised); border-color: var(--line); }
-:global([data-theme="dark"]) :is(.heading p, .note) { color: var(--muted); }
-:global([data-theme="dark"]) .track li { color: var(--text); }
-:global([data-theme="dark"]) .track img { padding: 3px; border-radius: 5px; background: #f6f8fc; }
+.band {
+  padding-block: clamp(28px, 3.5vw, 52px);
+  border-block: 1px solid var(--line);
+  background: var(--bg-raised);
+  overflow: hidden;
+}
+.heading { padding-inline: 18px; text-align: center; margin-bottom: clamp(22px, 3vw, 38px); text-wrap: balance; }
+.heading h2 { color: var(--text); }
+.heading h2 span { color: var(--accent); }
+.heading p { font-size: 15px; color: var(--muted); margin-top: 8px; }
+.viewport { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.viewport + .viewport { margin-top: 18px; }
+.track { width: max-content; display: flex; animation: band-scroll 65s linear infinite; }
+.reverse { animation-direction: reverse; animation-duration: 75s; }
+.track ul {
+  --gap: clamp(34px, 4vw, 76px);
+  display: flex; align-items: center; justify-content: space-around; gap: var(--gap);
+  padding: 3px var(--gap) 3px 0; flex: none; min-width: 100vw;
+}
+.track li { display: flex; align-items: center; gap: 10px; white-space: nowrap; font-size: clamp(17px, 1.5vw, 23px); font-weight: 650; letter-spacing: -.025em; color: var(--text); }
+.track img { width: 29px; height: 29px; object-fit: contain; }
+:global([data-theme="dark"]) .reverse img { filter: invert(1); }
+@keyframes band-scroll { to { transform: translateX(-50%); } }
+@media (hover: hover) { .viewport:hover .track { animation-play-state: paused; } }
+@media (prefers-reduced-motion: reduce) {
+  .track, .reverse { animation: none; width: auto; }
+  .track ul { min-width: 0; width: 100%; flex-wrap: wrap; justify-content: center; gap: 12px 26px; padding-inline: 16px; }
+  .track ul[aria-hidden="true"] { display: none; }
+  .viewport { mask-image: none; }
+}
