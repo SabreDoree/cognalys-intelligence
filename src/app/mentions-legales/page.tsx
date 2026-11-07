@@ -28,10 +28,11 @@ export default function MentionsLegales() {
       <div><dt>Direction de publication</dt><dd><LegalValue value={legal.publicationDirector} /></dd></div>
     </dl>
 
-    <h2>2. Présentation des services</h2><p>Les informations figurant sur ce site décrivent les domaines d’intervention de {siteConfig.name}. La faisabilité, le périmètre, les conditions financières, les délais et les modalités de maintenance d’un projet sont précisés dans une proposition spécifique. Le contenu de ce site ne constitue pas une garantie de résultat.</p>
-    <h2>3. Démonstrations</h2><p>Les démonstrations présentes sur ce site sont des simulations pédagogiques. Les organisations et dossiers utilisés dans ces exemples sont fictifs. Aucun email n’est envoyé, aucun dossier client réel n’est créé et aucun logiciel métier n’est connecté pendant ces simulations.</p>
-    <h2>4. Propriété intellectuelle</h2><p>Les contenus, signes distinctifs et éléments graphiques du site sont protégés selon les droits applicables. Les composants logiciels et polices de caractères tiers restent soumis à leurs licences respectives. Toute réutilisation doit respecter ces droits et licences.</p>
-    <h2>5. Données personnelles</h2><p>Les modalités de traitement des données du formulaire et les informations relatives aux droits des personnes sont détaillées dans la <Link href="/confidentialite">politique de confidentialité</Link>.</p>
-    <h2>6. Contact et mise à jour</h2><p>Pour signaler une erreur ou poser une question sur le site, utilisez les coordonnées de l’éditeur ci-dessus. Dernière mise à jour des présentes mentions : <LegalValue value={legal.updatedAt} />.</p>
+    <h2>2. Hébergement</h2><p>Site hébergé par <LegalValue value={legal.hostName} />, <LegalValue value={legal.hostAddress} />. Téléphone de l’hébergeur : <LegalValue value={legal.hostPhone} />.</p>
+    <h2>3. Présentation des services</h2><p>Les informations figurant sur ce site décrivent les domaines d’intervention de {siteConfig.name}. La faisabilité, le périmètre, les conditions financières, les délais et les modalités de maintenance d’un projet sont précisés dans une proposition spécifique. Le contenu de ce site ne constitue pas une garantie de résultat.</p>
+    <h2>4. Démonstrations</h2><p>Les démonstrations présentes sur ce site sont des simulations pédagogiques. Les organisations et dossiers utilisés dans ces exemples sont fictifs. Aucun email n’est envoyé, aucun dossier client réel n’est créé et aucun logiciel métier n’est connecté pendant ces simulations.</p>
+    <h2>5. Propriété intellectuelle</h2><p>Les contenus, signes distinctifs et éléments graphiques du site sont protégés selon les droits applicables. Les composants logiciels et polices de caractères tiers restent soumis à leurs licences respectives. Toute réutilisation doit respecter ces droits et licences.</p>
+    <h2>6. Données personnelles</h2><p>Les modalités de traitement des données du formulaire et les informations relatives aux droits des personnes sont détaillées dans la <Link href="/confidentialite">politique de confidentialité</Link>.</p>
+    <h2>7. Contact et mise à jour</h2><p>Pour signaler une erreur ou poser une question sur le site, utilisez les coordonnées de l’éditeur ci-dessus. Dernière mise à jour des présentes mentions : <LegalValue value={legal.updatedAt} />.</p>
   </LegalShell>;
 }
