@@ -5,6 +5,8 @@ import { Footer } from "@/components/footer";
 import { isIndexable, siteConfig } from "@/config/site";
 import "./globals.css";
 import "./compact.css";
+import "./theme.css";
+import { initialThemeScript, themeColors } from "@/lib/theme";
 
 const manrope = localFont({ src: "../../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2", variable: "--font-manrope", display: "swap", weight: "200 800" });
 
@@ -19,8 +21,8 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg`, type: "image/svg+xml" }, { url: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/favicon.ico`, sizes: "32x32" }], apple: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/apple-touch-icon.png` },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#ffffff", colorScheme: "light" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: themeColors.dark };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="fr" className={manrope.variable}><body><a href="#contenu" className="skip-link">Aller au contenu</a><div id="top" /><Header />{children}<Footer /></body></html>;
+  return <html lang="fr" className={manrope.variable} data-theme="dark" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: initialThemeScript }} /></head><body><a href="#contenu" className="skip-link">Aller au contenu</a><div id="top" /><Header />{children}<Footer /></body></html>;
 }

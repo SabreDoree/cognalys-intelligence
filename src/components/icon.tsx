@@ -6,6 +6,8 @@ const paths: Record<string, React.ReactNode> = {
   server: <><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6h.1M7 17h.1M11 6h6M11 17h6"/></>,
   camera: <><path d="M3 7h4l2-3h6l2 3h4v13H3V7Z"/><circle cx="12" cy="13" r="4"/></>,
   cart: <><path d="M2 3h3l3 12h11l3-9H6M8 19h.1M18 19h.1"/><circle cx="8" cy="19" r="1"/><circle cx="18" cy="19" r="1"/></>,
+  sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></>,
+  moon: <path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/>,
   lamp: <><path d="M8 21h10M13 21V11l5-5-4-3-5 5M9 8l5 3M8 9l-4 4h10l-2-3"/></>,
   arrow: <><path d="M4 12h15M13 6l6 6-6 6" /></>,
   arrowUpRight: <><path d="M6 18 18 6M6 6h12v12" /></>,

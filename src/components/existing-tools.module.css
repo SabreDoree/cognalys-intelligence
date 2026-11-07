@@ -296,3 +296,12 @@
   .filament { stroke: LinkText; }
   .tile { forced-color-adjust: none; }
 }
+
+:global([data-theme="dark"]) .section .copy h2 { color: var(--text); }
+:global([data-theme="dark"]) .copy h2 span { color: var(--accent); background: none; }
+:global([data-theme="dark"]) .eyebrow { color: var(--accent); }
+:global([data-theme="dark"]) :is(.intro, .note) { color: var(--muted); }
+:global([data-theme="dark"]) .figure { background: var(--bg-raised); border-color: var(--line); }
+:global([data-theme="dark"]) .picker legend { color: var(--text); }
+:global([data-theme="dark"]) .choice { color: var(--text); background: #222d3e; border-color: #44516a; }
+:global([data-theme="dark"]) .choice[aria-pressed="true"] { color: #d6e6ff; background: #223858; border-color: var(--accent); }

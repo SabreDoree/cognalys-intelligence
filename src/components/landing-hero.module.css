@@ -7,3 +7,10 @@
 @media(min-width:1500px){.hero{padding-block:54px 40px}}@media(max-width:1100px){.hero h1{font-size:43px}.intro{font-size:15px}.actions{gap:12px}.primary{font-size:12px;padding-inline:16px}.secondary{font-size:11px}.eyebrow{font-size:8px}.assurances{gap:8px 13px}}
 @media(max-width:1000px){.hero{grid-template-columns:1fr;gap:6px;min-height:0;padding-block:26px 24px}.copy{padding:0}.eyebrow{font-size:8px;letter-spacing:.07em;margin-bottom:17px}.hero h1{font-size:clamp(36px,7.8vw,53px);max-width:610px}.intro{font-size:14px;line-height:1.8;margin-top:18px;max-width:530px}.actions{margin-top:21px;gap:13px 19px}.primary{font-size:12px;min-height:48px}.secondary{font-size:11px}.assurances{margin-top:17px;gap:8px 14px}.assurances>span{font-size:9px}.illustration{max-width:400px}.illustration figcaption{font-size:9px}.hero .stage{margin-top:8px}}@media(max-width:380px){.hero h1{font-size:34px}.actions{gap:7px}.primary{width:100%;font-size:13px}.secondary{width:100%;min-height:44px}.assurances{justify-content:center;gap:8px 10px}.assurances>span{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.stage *{animation:none!important}.badge{display:none}.firstCheck,.loopCheck,.tileRing,.botRing,.pulse{display:none}.connection{opacity:1;stroke-dashoffset:0}.working,.eye b{opacity:0}.eye i{opacity:1}.primary,.ctaEyes,.ctaLook>svg{transition:none}.primary:hover{transform:none}}
+
+:global([data-theme="dark"]) .hero h1 { color: var(--text); }
+:global([data-theme="dark"]) .hero h1 > span,
+:global([data-theme="dark"]) .secondary { color: var(--accent); }
+:global([data-theme="dark"]) :is(.eyebrow, .intro, .assurances, .illustration figcaption) { color: var(--muted); }
+:global([data-theme="dark"]) .glow { background: radial-gradient(ellipse at center, #3369b12b, transparent 68%); }
+:global([data-theme="dark"]) .connection { stroke: #7499d17a; }

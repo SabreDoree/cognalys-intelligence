@@ -4,6 +4,7 @@ import { contactMode } from "@/lib/contact-handler";
 import { Icon } from "@/components/icon";
 import { ExistingTools } from "@/components/existing-tools";
 import { WorkflowDemo } from "@/components/workflow-demo";
+import { CostCalculator } from "@/components/cost-calculator";
 import { ContactForm } from "@/components/contact-form";
 import { LandingHero } from "@/components/landing-hero";
 import { RealisationPreview } from "@/components/realisation-preview";
@@ -24,6 +25,7 @@ export default function Home(){
   <ExistingTools/>
   <RealisationPreview/>
   <section id="solutions" className="compact-section shell" aria-labelledby="solutions-heading"><h2 id="solutions-heading">Ce que vous pouvez y gagner.</h2><div className="compact-benefits">{benefits.map(item=><article key={item.title}><Icon name={item.icon}/><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><p className="compact-invitation">Un autre besoin ? <a href="#contact">Nous étudions aussi les projets hors de ces exemples.<Icon name="arrowUpRight"/></a></p></section>
+  <CostCalculator/>
   <section id="methode" className="compact-method compact-section" aria-labelledby="method-heading"><div className="shell"><h2 id="method-heading">Du besoin à la mise en service.</h2><ol>{method.map((text,index)=><li key={text}><span>{index+1}</span>{text}</li>)}</ol></div></section>
   <section id="a-propos" className="compact-section shell compact-about" aria-labelledby="about-heading"><div><span className="about-label">À PROPOS DE COGNALYS</span><h2 id="about-heading">Des outils conçus pour votre quotidien.</h2></div><div><p>Cognalys Intelligence conçoit des automatisations, connecte les logiciels métier et crée des outils sur mesure pour les entreprises. Chaque projet part d’un besoin concret : traiter des demandes, préparer des documents ou organiser le suivi commercial.</p><a className="text-link" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}<Icon name="arrowUpRight" /></a></div></section>
   <section id="faq" className="compact-section shell compact-faq" aria-labelledby="faq-heading"><h2 id="faq-heading">Les réponses utiles.</h2><div className="faq-list">{faqIndexes.map(index=>siteConfig.faq[index]).map(item=><details className="faq-item" name="faq" key={item.question}><summary><span>{item.question}</span><Icon name="plus"/></summary><div className="faq-answer"><p>{item.answer}</p></div></details>)}</div></section>

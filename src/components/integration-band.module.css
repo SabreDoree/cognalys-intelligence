@@ -5,3 +5,8 @@
 
 .heading{justify-content:center;text-align:center}.heading h3{font-weight:750}.heading h3{font-size:clamp(23px,2.6vw,32px)}
 @media(max-width:760px){.heading{align-items:center}}
+
+:global([data-theme="dark"]) .band { background: var(--bg-raised); border-color: var(--line); }
+:global([data-theme="dark"]) :is(.heading p, .note) { color: var(--muted); }
+:global([data-theme="dark"]) .track li { color: var(--text); }
+:global([data-theme="dark"]) .track img { padding: 3px; border-radius: 5px; background: #f6f8fc; }
