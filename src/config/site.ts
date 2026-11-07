@@ -18,7 +18,7 @@ export const siteConfig = {
   description: "Traitez davantage de demandes, relancez vos prospects et réduisez les tâches manuelles. Cognalys Intelligence crée des solutions adaptées à votre entreprise.",
   url: httpUrl(process.env.NEXT_PUBLIC_SITE_URL),
   bookingUrl: httpUrl(process.env.NEXT_PUBLIC_BOOKING_URL),
-  contact: { email: "cognalysintelligence@gmail.com", phone: "", phoneHref: "" },
+  contact: { email: "contact@cognalys-intelligence.fr", phone: "", phoneHref: "" },
   socials: [] as { label: string; url: string }[],
   legal: {
     validated: false,
@@ -34,7 +34,7 @@ export const siteConfig = {
     hostName: "",
     hostAddress: "",
     hostPhone: "",
-    privacyEmail: "cognalysintelligence@gmail.com",
+    privacyEmail: "contact@cognalys-intelligence.fr",
     // À fixer selon vos pratiques réelles, y compris la boîte de réception.
     requestRetention: "",
     technicalLogRetention: "",
