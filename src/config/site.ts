@@ -21,7 +21,7 @@ export const siteConfig = {
   contact: { email: "contact@cognalys-intelligence.fr", phone: "06 51 28 77 70", phoneHref: "tel:+33651287770" },
   socials: [] as { label: string; url: string }[],
   legal: {
-    validated: false,
+    validated: true,
     legalName: "Amine Badaoui",
     legalForm: "Entrepreneur individuel — régime micro-entreprise",
     capital: "",
@@ -33,7 +33,7 @@ export const siteConfig = {
     publicationDirector: "Amine Badaoui",
     hostName: "GitHub, Inc. — GitHub Pages",
     hostAddress: "88 Colin P. Kelly Jr. St., San Francisco, CA 94107, États-Unis",
-    hostPhone: "",
+    hostPhone: "+1 415 735 4488",
     privacyEmail: "contact@cognalys-intelligence.fr",
     // À fixer selon vos pratiques réelles, y compris la boîte de réception.
     requestRetention: "12 mois après le dernier échange pour les demandes sans suite, dans Formspree et la messagerie ; les dossiers donnant lieu à un contrat suivent les durées légales applicables.",
