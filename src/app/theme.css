@@ -20,7 +20,7 @@
 .theme-toggle .icon { width: 19px; height: 19px; }
 [data-theme="dark"] .theme-to-dark, [data-theme="light"] .theme-to-light { display: none; }
 [data-theme="dark"] .site-header { background: #090b0ff5; border-color: var(--line); }
-[data-theme="dark"] .brand-logo { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
+[data-theme="dark"] .brand-logo-light, [data-theme="light"] .brand-logo-dark { display: none; }
 [data-theme="dark"] :is(.desktop-nav a, .mobile-menu a, .footer-top > p, .footer-bottom, .back-top,
 .compact-benefits p, .compact-section-heading p, .compact-invitation, .compact-method li, .compact-about p,
 .compact-contact > div > p, .faq-answer, .error-page p, .legal-page :is(p, li, dt, dd)) { color: var(--muted); }

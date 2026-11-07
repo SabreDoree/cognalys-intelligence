@@ -35,7 +35,7 @@ export function HeroNetwork() {
           <span className={`${styles.loopCheck} ${styles[app.group]}`}><Check /></span>
         </div></div>
       </div>)}
-      <div className={styles.botPosition}><div className={styles.botBounce}><span className={styles.botRing} /><div className={styles.bot}><div className={styles.working} /><div className={styles.face}><span className={styles.eye}><i /><b /></span><span className={styles.eye}><i /><b /></span></div></div></div></div>
+      <div className={styles.botPosition}><div className={styles.botBounce}><span className={styles.botRing} /><Image className={styles.hubIcon} src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg`} alt="" width={96} height={96} unoptimized priority /></div></div>
     </div>
     <figcaption>Vos applications. Un même flux de travail.</figcaption>
   </figure>;

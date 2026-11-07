@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { BrandLogo } from "./brand-logo";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { siteConfig } from "@/config/site";
 import { themeColors, themeKey } from "@/lib/theme";
@@ -51,7 +51,7 @@ export function Header() {
   return <header className="site-header">
     <div className="shell header-inner">
       <Link href="/" className="brand" aria-label={`${siteConfig.name} — accueil`} onClick={() => setOpen(false)}>
-        <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/wordmark.svg`} alt="Cognalys Intelligence — Repensons vos systèmes avec intelligence" width={940} height={175} className="brand-logo" priority />
+        <BrandLogo />
       </Link>
       <nav className="desktop-nav" aria-label="Navigation principale">{siteConfig.nav.map(item => <a key={item.href} href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${item.href}`} className={item.href === "/#demonstration" ? "demo-nav-cta" : undefined} onClick={event => navigate(event, item.href)}>{item.href === "/#demonstration" && <span className="demo-radar" aria-hidden="true" />}{item.label}</a>)}</nav>
       <Link className="button button-header" href="/#contact">{siteConfig.hero.primaryCta} <Icon name="arrowUpRight" /></Link>
