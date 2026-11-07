@@ -8,8 +8,8 @@ export default function StatusPage() {
   return <main id="contenu" className={`shell ${styles.page}`}>
     <h1>État des services</h1>
     <section><h2>Services Cognalys</h2><p>Aperçu · statuts simulés en attendant la connexion de la supervision.</p>
-      <div className={styles.cards}>{["Europe 01", "Europe 02", "Europe 03", "Modèles IA · LLM"].map((name,i) =>
-        <div key={name}><strong>{name}</strong><span><i />{i === 3 ? "Disponible" : "En ligne"}</span></div>)}</div>
+      <div className={styles.cards}>{[["Kiro", "Europe 1"], ["Vanta", "Europe 2"], ["Sora", "Europe 3"], ["Modèles IA · LLM", ""]].map(([name, region],i) =>
+        <div key={name}><strong>{name}</strong>{region && <small>{region}</small>}<span><i />{i === 3 ? "Disponible" : "En ligne"}</span></div>)}</div>
     </section>
     <section><h2>Services externes</h2><p>Consultez les incidents signalés par les fournisseurs de vos outils.</p><Providers /></section>
     <section><h2>Que se passe-t-il si mon automatisation ne fonctionne pas ?</h2>
