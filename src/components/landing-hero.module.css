@@ -14,3 +14,66 @@
 :global([data-theme="dark"]) :is(.eyebrow, .intro, .assurances, .illustration figcaption) { color: var(--muted); }
 :global([data-theme="dark"]) .glow { background: radial-gradient(ellipse at center, #3369b12b, transparent 68%); }
 :global([data-theme="dark"]) .connection { stroke: #7499d17a; }
+
+.reel {
+  display: grid;
+  overflow: hidden;
+  line-height: 1.22;
+}
+.phrase {
+  grid-area: 1 / 1;
+  align-self: start;
+}
+.phrase:not(:first-child) { visibility: hidden; }
+.erased { position: relative; display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reel { --cycle: 12s; }
+  .phrase, .phrase:not(:first-child) {
+    visibility: visible;
+    opacity: 0;
+    animation: rollPhrase var(--cycle) cubic-bezier(.22,.72,.22,1) infinite;
+    animation-delay: var(--delay);
+  }
+  /* Start mid-hold so the first phrase is readable on the first paint. */
+  .phrase:first-child { --delay: -.48s; }
+  .phrase:nth-child(2) { --delay: 2.52s; }
+  .phrase:nth-child(3) { --delay: 5.52s; }
+  .phrase:last-child { --delay: 8.52s; animation-name: rollAndErase; }
+  .erased::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 53%;
+    height: .065em;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: strikePhrase var(--cycle) ease-in-out var(--delay) infinite;
+  }
+  @keyframes rollPhrase {
+    0% { opacity: 0; transform: translateY(75%); }
+    4%, 23% { opacity: 1; transform: translateY(0); }
+    27%, 100% { opacity: 0; transform: translateY(-78%); }
+  }
+  @keyframes rollAndErase {
+    0% { opacity: 0; transform: translateY(75%); }
+    4%, 24% { opacity: 1; transform: translateY(0); }
+    25%, 100% { opacity: 0; transform: translateY(0); }
+  }
+  .phrase:last-child .erased { animation: wipePhrase var(--cycle) ease-in-out var(--delay) infinite; }
+  @keyframes strikePhrase {
+    0%, 11% { transform: scaleX(0); }
+    15%, 100% { transform: scaleX(1); }
+  }
+  @keyframes wipePhrase {
+    0%, 18% { clip-path: inset(0); }
+    23%, 100% { clip-path: inset(0 0 0 100%); }
+  }
+}
+@media (max-width: 440px) {
+  .phrase:nth-child(3) { font-size: .83em; line-height: 1.47; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phrase:not(:first-child) { display: none; }
+}

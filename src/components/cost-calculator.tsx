@@ -7,7 +7,7 @@ import styles from "./cost-calculator.module.css";
 const euros = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const number = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
 const workingWeeks = 47;
-const illustrativeShare = 0.5;
+const simulationPercent = 90;
 const sliders = [
   { key: "people", label: "Personnes concernées", unit: "pers.", min: 1, max: 50, step: 1 },
   { key: "time", label: "Heures par personne et par semaine", unit: "h", min: 0, max: 40, step: 0.5 },
@@ -17,7 +17,7 @@ const sliders = [
 export function CostCalculator() {
   const [values, setValues] = useState({ people: 3, time: 6, rate: 35 });
   const cost = values.people * values.time * workingWeeks * values.rate;
-  const recoveredHours = values.people * values.time * workingWeeks * illustrativeShare;
+  const recoveredHours = values.people * values.time * workingWeeks * simulationPercent / 100;
 
   return <section id="calculateur" className={`shell ${styles.section}`} aria-labelledby="cost-title">
     <header className={styles.header}>
@@ -48,10 +48,10 @@ export function CostCalculator() {
         <div role="status" aria-atomic="true">
           <h3>Coût annuel de cette tâche</h3>
           <p className={styles.amount}>{euros.format(cost)}</p>
-          <p className={styles.scenario}>Si l’automatisation libère {illustrativeShare * 100} % du temps</p>
-          <p className={styles.gain}><strong>{number.format(recoveredHours)} h</strong> récupérées, soit <strong>{euros.format(cost * illustrativeShare)}</strong> de temps de travail par an.</p>
+          <p className={styles.scenario}>Cognalys Intelligence estime à plus de {simulationPercent} % le gain de temps moyen sur les tâches ciblées.</p>
+          <p className={styles.gain}><strong>{number.format(recoveredHours)} h</strong> récupérées, soit <strong>{euros.format(recoveredHours * values.rate)}</strong> de temps de travail par an.</p>
         </div>
-        <p className={styles.note}>Exemple sur {workingWeeks} semaines. Cognalys évalue le gain réalisable avec vous.</p>
+        <p className={styles.note}>Simulation à {simulationPercent} % sur {workingWeeks} semaines. Le gain réel dépend de la tâche.</p>
         <a className={styles.cta} href="#contact">Étudier cette automatisation <Icon name="arrowUpRight"/></a>
       </div>
     </div>
