@@ -13,6 +13,7 @@ export function WorkflowDemo(){
  const [modal,setModal]=useState<"timing"|"info"|null>(null);
  const [state,dispatch]=useReducer(workflowReducer,workflowPlan(workflows[0],true),createWorkflowState);
  const shell=useRef<HTMLDivElement>(null);
+ const situationPicker = useRef<HTMLLabelElement>(null);
  const tabs=useRef<(HTMLButtonElement|null)[]>([]),scroller=useRef<HTMLDivElement>(null),dialog=useRef<HTMLDialogElement>(null);
  const scenario=workflows[scenarioIndex],steps=workflowSteps(scenario,reviewEnabled),current=steps[state.step],comparison=demoComparisons[scenario.id];
  const idle=state.phase==="idle",running=state.phase==="running",approval=state.phase==="approval",done=state.phase==="complete";
@@ -20,13 +21,22 @@ export function WorkflowDemo(){
  useEffect(()=>{if(!running||manual)return;const timer=window.setTimeout(()=>dispatch("tick"),workflowDelay(longReading));return()=>window.clearTimeout(timer);},[state,manual,running,longReading]);
  useEffect(()=>{scroller.current?.scrollTo({top:0,behavior:"instant"});},[scenarioIndex,state.step,topic,channel,appKind]);
  useEffect(()=>{const node=dialog.current;if(!node)return;if(modal&&!node.open)node.showModal();else if(!modal&&node.open)node.close();},[modal]);
+ useEffect(() => {
+  const picker = situationPicker.current;
+  if (!picker) return;
+  const observer = new IntersectionObserver(([entry]) => {
+   picker.toggleAttribute("data-in-view", entry.intersectionRatio >= 0.5);
+  }, { threshold: 0.5, rootMargin: "-64px 0px 0px" });
+  observer.observe(picker);
+  return () => observer.disconnect();
+ }, []);
  function alignSimulator(){const node=shell.current;if(!node)return;const rect=node.getBoundingClientRect();const header=document.querySelector(".site-header")?.getBoundingClientRect().height??72;if(rect.top<header+8||rect.bottom>window.innerHeight-8)node.scrollIntoView({block:"start",behavior:"instant"});}
  function select(index:number){alignSimulator();setScenarioIndex(index);dispatch({type:"configure",plan:workflowPlan(workflows[index],reviewEnabled)});}
  function toggleReview(){setReviewEnabled(!reviewEnabled);dispatch({type:"configure",plan:workflowPlan(scenario,!reviewEnabled)});}
  const status=idle?"Prêt":approval?"À valider":done?"Terminé":state.phase==="paused"?"En pause":manual?"Pas à pas":"En cours";
  return <div className="sim-shell" ref={shell}>
   <aside className="sim-sidebar"><div className="sim-tabs" role="tablist" aria-label="Choisir un exemple concret" aria-orientation="vertical">{workflows.map((item,index)=><button key={item.id} ref={el=>{tabs.current[index]=el;}} id={`tab-${item.id}`} role="tab" aria-selected={index===scenarioIndex} aria-controls="workflow-panel" tabIndex={index===scenarioIndex?0:-1} onClick={()=>select(index)} onKeyDown={event=>{let next=index;if(["ArrowDown","ArrowRight"].includes(event.key))next=(index+1)%workflows.length;else if(["ArrowUp","ArrowLeft"].includes(event.key))next=(index+workflows.length-1)%workflows.length;else if(event.key==="Home")next=0;else if(event.key==="End")next=workflows.length-1;else return;event.preventDefault();select(next);tabs.current[next]?.focus();}}><Icon name={item.icon}/>{item.label}</button>)}</div><p className="sim-objective"><Icon name="target"/>{scenario.benefit}</p></aside>
-  <label className="sim-mobile-select">Situation<select aria-label="Choisir un exemple concret" value={scenarioIndex} onChange={event=>select(Number(event.target.value))}>{workflows.map((item,index)=><option key={item.id} value={index}>{item.label}</option>)}</select></label>
+  <label ref={situationPicker} className="sim-mobile-select">Situation<select aria-label="Choisir un exemple concret" value={scenarioIndex} onChange={event=>select(Number(event.target.value))}>{workflows.map((item,index)=><option key={item.id} value={index}>{item.label}</option>)}</select></label>
   <div className={`sim-main ${running?"demo-running":""}`} id="workflow-panel" role="tabpanel" aria-labelledby={`tab-${scenario.id}`} data-phase={state.phase}>
    <div className="sim-heading"><div><span>{state.step+1} / {steps.length}</span><h3>{current.title}</h3></div><button type="button" className="sim-time-button" onClick={()=>setModal("timing")} aria-haspopup="dialog">{scenario.id==="application"?"Pour les devs":"Avant / après"}<Icon name="plus"/></button></div>
    <div className="sim-settings">{scenario.reviewLabel?<div className="sim-review"><button type="button" role="switch" aria-label={scenario.reviewLabel} aria-checked={reviewEnabled} onClick={toggleReview}><span/></button><span>{scenario.reviewLabel}</span></div>:<span className="sim-automatic"><Icon name="check"/>Traitement automatique</span>}<label>Lecture<select aria-label="Rythme" value={manual?"manual":"slow"} onChange={event=>setManual(event.target.value==="manual")}><option value="slow">Auto</option><option value="manual">Pas à pas</option></select></label></div>
