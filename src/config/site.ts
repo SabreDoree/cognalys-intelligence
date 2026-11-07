@@ -39,8 +39,8 @@ export const siteConfig = {
     requestRetention: "12 mois après le dernier échange pour les demandes sans suite, dans Formspree et la messagerie ; les dossiers donnant lieu à un contrat suivent les durées légales applicables.",
     technicalLogRetention: "Selon les durées appliquées par GitHub Pages et Formspree à leurs journaux de sécurité et de fonctionnement ; Cognalys ne constitue pas de journal applicatif des messages.",
     // Noms / localisation / rôle des prestataires effectivement activés.
-    processors: "GitHub Pages (hébergement du site, États-Unis) ; Formspree (réception et transmission du formulaire, États-Unis) ; prestataire de messagerie associé à contact@cognalys-intelligence.fr (réception des notifications).",
-    internationalTransfers: "GitHub Pages et Formspree sont des services établis aux États-Unis. Formspree indique recourir aux clauses contractuelles types pour les transferts ; les garanties applicables aux autres prestataires dépendent de leurs contrats.",
+    processors: "GitHub Pages (hébergement du site, États-Unis) ; Formspree (réception et transmission du formulaire, États-Unis) ; OVH (redirection des emails de contact@cognalys-intelligence.fr) ; Google Gmail (réception et conservation des emails redirigés).",
+    internationalTransfers: "GitHub Pages et Formspree sont des services établis aux États-Unis. Formspree indique recourir aux clauses contractuelles types pour les transferts ; OVH et Google interviennent dans la transmission et la réception des messages ; leurs éventuels transferts et garanties sont décrits dans leurs conditions de service.",
     updatedAt: "7 novembre 2026",
   },
   form: {
