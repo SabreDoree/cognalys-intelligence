@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/icon";
@@ -40,7 +41,7 @@ export default function RealisationsPage() {
       </div>
       <article id="projet-des" className={styles.caseStudy} aria-labelledby="project-heading">
         <header className={styles.projectHeader}>
-          <div><span className={styles.projectLabel}>PROJET · 01</span><h2 id="project-heading">D.E.S Déménagement</h2><p>Déménagement · Débarras · Transport urgent<br />Strasbourg / Grand-Est / Europe</p></div>
+          <div><Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/clients/des-demenagement.webp`} alt="DES Déménagements" width={964} height={290} className={styles.desArticle} unoptimized /><h2 id="project-heading">D.E.S Déménagement</h2><p>Déménagement · Débarras · Transport urgent<br />Strasbourg / Grand-Est / Europe</p></div>
           <div className={styles.projectScope}><span>LE PÉRIMÈTRE</span><p>Site web, automatisations<br />et outils de gestion.</p></div>
         </header>
         <section className={styles.context} aria-labelledby="context-heading"><div><span className={styles.eyebrow}>LE BESOIN</span><h3 id="context-heading">Relier le commercial<br />à l’administratif.</h3></div><p>Une demande de déménagement mobilise des informations, un chiffrage, des documents et plusieurs échanges. Le projet vise à faire circuler ces données entre les outils de l’équipe et à structurer les étapes du dossier, du premier contact au suivi de paiement.</p></section>

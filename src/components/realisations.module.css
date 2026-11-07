@@ -15,7 +15,7 @@
 .clientCard:hover, .clientCard:focus-visible { border-color:var(--accent); }
 .clientMark,.gunstarBanner { background:#111; color:white; display:grid; place-items:center; }
 .clientMark { min-height:100px; flex:1; }
-.clientMark[data-client="des-demenagement"] { background:linear-gradient(120deg,#102b56,#164e9f); font-size:34px; font-weight:800; letter-spacing:-.06em; }
+.clientMark[data-client="des-demenagement"] { background:white; }
 .clientMark img,.gunstarBanner img { width:62%; max-width:370px; height:auto; }
 .clientBody { padding:18px; }
 .clientBody small,.clientBody p { color:var(--muted); }
@@ -28,3 +28,8 @@
 .caseText section { padding:22px 0; border-top:1px solid var(--line); }
 .caseText h2 { font-size:25px; margin-bottom:12px; }
 .caseText p { color:var(--muted); line-height:1.8; }
+
+.desPreview, .desArticle { display:block; height:auto; border-radius:5px; }
+.desPreview { width:min(135px,43%); }
+.desArticle { width:min(230px,100%); margin-bottom:15px; }
+.clientMark[data-client="des-demenagement"] img { width:90%; height:auto; }
