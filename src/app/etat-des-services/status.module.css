@@ -6,6 +6,7 @@
 .cards {display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .cards>div,.list {border:1px solid var(--line);border-radius:12px;background:var(--bg-raised)}
 .cards>div {padding:16px}
+.cards small { display:block; color:var(--muted); margin-top:3px; }
 .cards span,.list strong {display:flex;align-items:center;gap:8px}
 .cards span {font-size:13px;margin-top:8px}
 .cards i {width:8px;height:8px;border-radius:50%;background:#29ae76}

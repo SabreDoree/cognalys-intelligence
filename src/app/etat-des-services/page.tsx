@@ -7,7 +7,7 @@ export const metadata = { title: "État des services", alternates: { canonical: 
 export default function StatusPage() {
   return <main id="contenu" className={`shell ${styles.page}`}>
     <h1>État des services</h1>
-    <section><h2>Services Cognalys</h2><p>Aperçu · statuts simulés en attendant la connexion de la supervision.</p>
+    <section><h2>Services Cognalys</h2>
       <div className={styles.cards}>{[["Kiro", "Europe 1"], ["Vanta", "Europe 2"], ["Sora", "Europe 3"], ["Modèles IA · LLM", ""]].map(([name, region],i) =>
         <div key={name}><strong>{name}</strong>{region && <small>{region}</small>}<span><i />{i === 3 ? "Disponible" : "En ligne"}</span></div>)}</div>
     </section>
