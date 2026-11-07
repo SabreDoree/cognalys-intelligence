@@ -18,7 +18,7 @@ export default function Confidentialite() {
     <h2>Conservation</h2>
     <p>Demandes sans suite et échanges associés : <LegalValue value={legal.requestRetention} />. Journaux techniques : <LegalValue value={legal.technicalLogRetention} />. Les documents contractuels et comptables sont conservés selon les obligations légales applicables.</p>
     <h2>Transferts hors de l’EEE</h2>
-    <p><LegalValue value={legal.internationalTransfers} />. La localisation et les garanties de la messagerie doivent être vérifiées auprès de son fournisseur.</p>
+    <p><LegalValue value={legal.internationalTransfers} />. Les modalités des services de messagerie sont précisées dans leurs conditions contractuelles.</p>
     <h2>Vos droits</h2>
     <p>Vous pouvez demander l’accès, la rectification, l’effacement ou la limitation de vos données et, selon les cas, vous opposer au traitement ou exercer votre droit à la portabilité. Écrivez à <a href={`mailto:${legal.privacyEmail}`}>{legal.privacyEmail}</a>. Vous pouvez également <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">saisir la CNIL</a>.</p>
     <h2>Cookies et démonstrations</h2>
