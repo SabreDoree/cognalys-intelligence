@@ -18,7 +18,7 @@ export const siteConfig = {
   description: "Traitez davantage de demandes, relancez vos prospects et réduisez les tâches manuelles. Cognalys Intelligence crée des solutions adaptées à votre entreprise.",
   url: httpUrl(process.env.NEXT_PUBLIC_SITE_URL),
   bookingUrl: httpUrl(process.env.NEXT_PUBLIC_BOOKING_URL),
-  contact: { email: "contact@cognalys-intelligence.fr", phone: "", phoneHref: "" },
+  contact: { email: "contact@cognalys-intelligence.fr", phone: "06 51 28 77 70", phoneHref: "tel:+33651287770" },
   socials: [] as { label: string; url: string }[],
   legal: {
     validated: false,
