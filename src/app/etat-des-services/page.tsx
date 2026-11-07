@@ -13,7 +13,7 @@ export default function StatusPage() {
     </section>
     <section><h2>Services externes</h2><p>Consultez les incidents signalés par les fournisseurs de vos outils.</p><Providers /></section>
     <section><h2>Que se passe-t-il si mon automatisation ne fonctionne pas ?</h2>
-      <p>Un devis tarde à partir ou une commande reste bloquée ? Vérifiez le service concerné ci-dessus. Si le problème persiste, indiquez-nous le nom de l’automatisation, l’étape interrompue et l’heure approximative. Ces informations nous aident à retrouver l’exécution concernée.</p>
+      <p>En cas d’interruption, Cognalys analyse le dossier et identifie les opérations déjà effectuées avant toute reprise. Vous disposez d’un interlocuteur qui vous explique l’impact sur votre activité et vous tient informé jusqu’à la résolution de l’incident.</p>
       <a className="button button-cyan" href={`mailto:${siteConfig.contact.email}?subject=Automatisation%20interrompue`}>Signaler un problème</a>
     </section>
   </main>;
